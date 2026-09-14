@@ -43,8 +43,6 @@ images.forEach(function(image) {
 
 const home = document.querySelector(".home");
 
-
-// Only run homepage code if .home exists
 if (home) {
 
     // Start with a random image
@@ -61,9 +59,6 @@ if (home) {
     let lastMouseX = 0;
     let lastMouseY = 0;
 
-
-    // Distance the mouse needs to move
-    // before a new image appears
     const movementThreshold = 150;
 
 
@@ -98,6 +93,53 @@ if (home) {
             // Remember this mouse position
             lastMouseX = event.clientX;
             lastMouseY = event.clientY;
+        }
+
+    });
+
+}
+
+
+// --------------------
+// CONTACT FORM
+// --------------------
+
+const contactForm = document.querySelector("#contact-form");
+const formSuccess = document.querySelector("#form-success");
+
+if (contactForm && formSuccess) {
+
+    contactForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const formData = new FormData(contactForm);
+
+        try {
+
+            const response = await fetch(contactForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.ok) {
+
+                contactForm.style.display = "none";
+                formSuccess.style.display = "block";
+
+            } else {
+
+                alert("Something went wrong. Please try again.");
+
+            }
+
+        } catch (error) {
+
+            alert("Something went wrong. Please try again.");
+
         }
 
     });
