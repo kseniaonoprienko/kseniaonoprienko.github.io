@@ -1,0 +1,222 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: DM Sans, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    background: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --------------------
+   NAVIGATION
+-------------------- */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+
+    padding: 30px 40px 0 40px;
+
+    z-index: 999;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    width: 100%;
+}
+
+.site-name {
+    font-weight: 400;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-button {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    background: none;
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+
+    cursor: pointer;
+}
+
+/* --------------------
+   DROPDOWN MENUS
+-------------------- */
+
+.dropdown {
+    display: none;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    padding-top: 20px;
+
+    white-space: nowrap;
+}
+
+.dropdown a {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.menu-item:hover .dropdown {
+    display: block;
+}
+
+/* --------------------
+   HOMEPAGE
+-------------------- */
+
+.home {
+    width: 100%;
+    min-height: 100vh;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* --------------------
+   MOBILE
+-------------------- */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 20px;
+    }
+}
+
+/* --------------------
+   INFO PAGE
+-------------------- */
+
+.info-page {
+    background: white;
+    color: black;
+}
+
+/* --------------------
+   CONTACT PAGE
+-------------------- */
+
+.contact-page {
+    background: white;
+    color: black;
+}
+
+.contact {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 120px 40px 60px;
+}
+
+.contact-form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.contact-form h1 {
+    margin: 0 0 50px;
+
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    margin-bottom: 8px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+
+    border: none;
+    border-bottom: 1px solid black;
+
+    border-radius: 0;
+
+    padding: 8px 0;
+    margin-bottom: 30px;
+
+    background: transparent;
+
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-bottom: 1px solid black;
+}
+
+.contact-form button {
+    align-self: flex-start;
+
+    border: none;
+    padding: 0;
+
+    background: none;
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+
+    cursor: pointer;
+}

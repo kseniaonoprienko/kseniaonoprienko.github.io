@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact — Ksenia Onoprienko</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="contact-page">
+
+    <header>
+
+        <nav>
+
+            <a href="index.html" class="site-name">
+                Ksenia Onoprienko
+            </a>
+
+            <div class="menu-item">
+
+                <button class="menu-button" type="button">
+                    Film Projects
+                </button>
+
+                <div class="dropdown">
+
+                    <a href="nakilla.html">
+                        Näkillä on limaiset hiukset
+                    </a>
+
+                    <a href="mun-makuun.html">
+                        Mun makuun
+                    </a>
+
+                    <a href="raja.html">
+                        Raja
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="menu-item">
+
+                <button class="menu-button" type="button">
+                    Other Work
+                </button>
+
+                <div class="dropdown">
+
+                    <a href="commercial.html">
+                        Commercial
+                    </a>
+
+                    <a href="graphic-design.html">
+                        Graphic Design
+                    </a>
+
+                    <a href="photography.html">
+                        Photography
+                    </a>
+
+                </div>
+
+            </div>
+
+            <a href="info.html">
+                Info
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="contact">
+
+        <div class="contact-form">
+
+            <h1>Contact</h1>
+
+         <form action="https://formspree.io/f/mnpqelan" method="POST">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <input type="hidden" name="_subject" value="New message from Ksenia Onoprienko's website">
+
+            <button type="submit">Send</button>
+
+         </form>
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
