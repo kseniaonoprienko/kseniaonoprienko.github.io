@@ -87,7 +87,7 @@
 
             <h1>Contact</h1>
 
-         <form action="https://formspree.io/f/mnpqelan" method="POST">
+        <form id="contact-form" action="https://formspree.io/f/mnpqelan" method="POST">
 
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
@@ -98,13 +98,20 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="6" required></textarea>
 
-            <input type="hidden" name="_subject" value="New message from Ksenia Onoprienko's website">
+            <input
+                type="hidden"
+                name="_subject"
+                value="New message from Ksenia Onoprienko's website"
+            >
 
             <button type="submit">Send</button>
 
-         </form>
+        </form>
 
-        </div>
+<div class="form-success" id="form-success" style="display: none;">
+    Thank you for your message!
+</div>
+
 
     </main>
 
