@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,16 +88,35 @@
 
             <h1>Contact</h1>
 
-        <form id="contact-form" action="https://formspree.io/f/mnpqelan" method="POST">
+
+        <form id="contact-form">
 
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                data-fs-field
+                required
+            >
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                data-fs-field
+                required
+            >
 
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+            <textarea
+                id="message"
+                name="message"
+                rows="6"
+                data-fs-field
+                required
+            ></textarea>
 
             <input
                 type="hidden"
@@ -104,17 +124,57 @@
                 value="New message from Ksenia Onoprienko's website"
             >
 
-            <button type="submit">Send</button>
+            <button
+                type="submit"
+                data-fs-submit-btn
+            >
+                Send
+            </button>
 
         </form>
 
-<div class="form-success" id="form-success" style="display: none;">
+<div
+    class="form-success"
+    id="form-success"
+    data-fs-success
+>
     Thank you for your message!
 </div>
 
 
-    <script src="script.js"></script>
+
+
+            <div
+                class="form-success"
+                id="form-success"
+                style="display: none;"
+            >
+                Thank you for your message!
+            </div>
+
+        </div>
+
+    </main>
+
+
+<script src="script.js"></script>
+
+<script>
+    window.formspree =
+        window.formspree ||
+        function () {
+            (formspree.q = formspree.q || []).push(arguments);
+        };
+
+    formspree("initForm", {
+        formElement: "#contact-form",
+        formId: "mnpqelan"
+    });
+</script>
+
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 
 </html>
+```

@@ -104,7 +104,20 @@ if (home) {
 // CONTACT FORM
 // --------------------
 
-const contactForm = document.querySelector("#contact-form");
+const contactForm = document.querySelector("#contact-form"); 
+
+if (contactForm)
+   
+    { window.formspree = 
+        window.formspree || 
+        function () { (formspree.q = formspree.q || []).push(arguments); 
+            
+        }; 
+    
+    formspree("initForm",
+         { formElement: "#contact-form", 
+            formId: "mnpqelan" 
+        }); }
 const formSuccess = document.querySelector("#form-success");
 
 if (contactForm && formSuccess) {
