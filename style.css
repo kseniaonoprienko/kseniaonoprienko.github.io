@@ -135,6 +135,54 @@ nav {
     color: black;
 }
 
+.info-page .site-name,
+.info-page .menu-item:first-of-type .menu-button,
+.info-page .menu-item:first-of-type .dropdown a {
+    color: white;
+}
+
+.info-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 45vw;
+    height: 100vh;
+}
+
+.info-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+.info-text {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 55vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: left;
+}
+
+.info-text p {
+    width: 400px;
+    margin: 0;
+}
+
+.info-text p + p {
+    margin-top: 30px;
+}
+
 /* --------------------
    CONTACT PAGE
 -------------------- */
@@ -222,4 +270,5 @@ nav {
 }
 .form-success {
     display: none;
+    margin-top: 30px;
 }
