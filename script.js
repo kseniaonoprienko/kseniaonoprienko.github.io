@@ -62,7 +62,7 @@ if (home) {
     let lastMouseX = 0;
     let lastMouseY = 0;
 
-    const movementThreshold = 150;
+    const movementThreshold = 250;
 
 
     document.addEventListener("mousemove", function(event) {

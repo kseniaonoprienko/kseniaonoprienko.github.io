@@ -127,6 +127,34 @@ nav {
 }
 
 /* --------------------
+   REEL PAGE
+-------------------- */
+
+.reel-page {
+    background: white;
+    color: black;
+}
+
+.reel {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reel-video {
+    width: 70vw;
+}
+
+.reel-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --------------------
    INFO PAGE
 -------------------- */
 
@@ -180,95 +208,5 @@ nav {
 }
 
 .info-text p + p {
-    margin-top: 30px;
-}
-
-/* --------------------
-   CONTACT PAGE
--------------------- */
-
-.contact-page {
-    background: white;
-    color: black;
-}
-
-.contact {
-    min-height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 120px 40px 60px;
-}
-
-.contact-form {
-    width: 100%;
-    max-width: 600px;
-}
-
-.contact-form h1 {
-    margin: 0 0 50px;
-
-    font-size: 15px;
-    font-weight: 400;
-}
-
-.contact-form form {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-form label {
-    margin-bottom: 8px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-
-    border: none;
-    border-bottom: 1px solid black;
-
-    border-radius: 0;
-
-    padding: 8px 0;
-    margin-bottom: 30px;
-
-    background: transparent;
-
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-
-    outline: none;
-}
-
-.contact-form textarea {
-    resize: vertical;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-bottom: 1px solid black;
-}
-
-.contact-form button {
-    align-self: flex-start;
-
-    border: none;
-    padding: 0;
-
-    background: none;
-
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    color: inherit;
-
-    cursor: pointer;
-}
-.form-success {
-    display: none;
     margin-top: 30px;
 }
