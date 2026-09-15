@@ -92,3 +92,56 @@ if (home) {
         }
     });
 }
+
+const graphicDesign = document.querySelector(".graphic-design");
+
+if (graphicDesign) {
+
+    const slides = document.querySelectorAll(".graphic-slide");
+
+    let currentSlide = 0;
+    let isChanging = false;
+
+    function changeSlide(direction) {
+
+        if (isChanging) {
+            return;
+        }
+
+        let nextSlide = currentSlide + direction;
+
+        // Loop from last image to first
+        if (nextSlide >= slides.length) {
+            nextSlide = 0;
+        }
+
+        // Loop from first image to last
+        if (nextSlide < 0) {
+            nextSlide = slides.length - 1;
+        }
+
+        isChanging = true;
+
+        slides[currentSlide].classList.remove("active");
+        slides[nextSlide].classList.add("active");
+
+        currentSlide = nextSlide;
+
+        setTimeout(function() {
+            isChanging = false;
+        }, 800);
+    }
+
+    window.addEventListener("wheel", function(event) {
+
+        if (event.deltaY > 0) {
+            changeSlide(1);
+        }
+
+        if (event.deltaY < 0) {
+            changeSlide(-1);
+        }
+
+    }, { passive: true });
+
+}

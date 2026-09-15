@@ -134,26 +134,83 @@ nav {
 }
 
 .reel {
+    position: fixed;
+    top: 75px;
+    left: 0;
+
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 75px);
 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
 
-    padding-top: 75px;
+    padding-bottom: 40px;
+
     box-sizing: border-box;
 }
 
 .reel-video {
-    width: 100vw;
-    height: calc(100vh - 75px);
+    width: 85vw;
+    max-width: 1100px;
+    aspect-ratio: 16 / 9;
 }
 
 .reel-video iframe {
     width: 100%;
     height: 100%;
     border: 0;
+    display: block;
+}
+
+/* --------------------
+   GRAPHIC DESIGN PAGE
+-------------------- */
+
+.graphic-design-page {
+    background: white;
+    color: black;
+    overflow: hidden;
+}
+
+.graphic-design {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 70vw;
+    height: 70vh;
+
+    margin: auto;
+
+    overflow: hidden;
+}
+
+.graphic-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.graphic-slide.active {
+    opacity: 1;
+}
+
+.graphic-slide img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
     display: block;
 }
 
