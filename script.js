@@ -93,7 +93,7 @@ if (home) {
     });
 }
 
-const graphicDesign = document.querySelector(".graphic-design");
+const graphicDesign = document.querySelector(".graphicdesign");
 
 if (graphicDesign) {
 
