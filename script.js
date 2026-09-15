@@ -132,7 +132,7 @@ if (graphicDesign) {
         }, 800);
     }
 
-    window.addEventListener("wheel", function(event) {
+    graphicDesign.addEventListener("wheel", function(event) {
 
         if (event.deltaY > 0) {
             changeSlide(1);
