@@ -267,6 +267,48 @@ nav {
 }
 
 /* --------------------
+   GRAPHIC DESIGN PAGE
+-------------------- */
+
+.photography-page {
+    background: black;
+    color: white;
+    overflow-x: hidden;
+}
+
+.photography {
+    display: flex;
+    flex-direction: column;
+    gap: 35vh;
+    padding-top: 50vh;
+    padding-bottom: 50vh;
+}
+
+.photo {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo img {
+    position: sticky;
+    top: 50vh;
+
+    max-width: 65vw;
+    max-height: 70vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+    transform: translateY(-50%);
+
+    display: block;
+}
+
+/* --------------------
    INFO PAGE
 -------------------- */
 
