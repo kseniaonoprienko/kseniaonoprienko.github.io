@@ -93,6 +93,155 @@ if (home) {
     });
 }
 
+/* =========================
+   FILM PROJECT OVERLAYS
+   ========================= */
+
+const projectTriggers =
+    document.querySelectorAll(".project-trigger");
+
+const projectOverlays = {
+    "nakilla": document.querySelector("#nakilla-overlay"),
+    "mun-makuun": document.querySelector("#mun-makuun-overlay"),
+    "limbo": document.querySelector("#limbo-overlay"),
+    "out-of-memory": document.querySelector("#out-of-memory-overlay")
+};
+
+const projectOrder = [
+    "nakilla",
+    "mun-makuun",
+    "limbo",
+    "out-of-memory"
+];
+
+let currentProject = null;
+
+
+// Open project from dropdown
+projectTriggers.forEach(function(trigger) {
+    trigger.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        openProject(trigger.dataset.project);
+    });
+});
+
+
+// Open a specific project
+function openProject(project) {
+    Object.values(projectOverlays).forEach(function(overlay) {
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+    });
+
+    const overlay = projectOverlays[project];
+
+    if (overlay) {
+        overlay.classList.add("active");
+        currentProject = project;
+    }
+}
+
+
+// Close the current project
+function closeProject() {
+    Object.values(projectOverlays).forEach(function(overlay) {
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+    });
+
+    currentProject = null;
+}
+
+
+// Click empty area = close project
+Object.values(projectOverlays).forEach(function(overlay) {
+    if (!overlay) return;
+
+    overlay.addEventListener("click", function(event) {
+        if (event.target === overlay) {
+            closeProject();
+        }
+    });
+});
+
+
+// Click project composition = next project
+Object.values(projectOverlays).forEach(function(overlay) {
+    if (!overlay) return;
+
+    const content =
+        overlay.querySelector(".project-content");
+
+    content.addEventListener("click", function(event) {
+        event.stopPropagation();
+
+        if (!currentProject) return;
+
+        const currentIndex =
+            projectOrder.indexOf(currentProject);
+
+        const nextIndex =
+            (currentIndex + 1) % projectOrder.length;
+
+        openProject(projectOrder[nextIndex]);
+    });
+});
+
+const graphicDesign = document.querySelector(".graphicdesign");
+
+if (graphicDesign) {
+    const slides = document.querySelectorAll(".graphic-slide");
+
+    let currentSlide = 0;
+    let isChanging = false;
+
+    function changeSlide(direction) {
+
+        if (isChanging) return;
+
+        let nextSlide = currentSlide + direction;
+
+        if (nextSlide >= slides.length) {
+            nextSlide = 0;
+        }
+
+        if (nextSlide < 0) {
+            nextSlide = slides.length - 1;
+        }
+
+        isChanging = true;
+
+        slides[currentSlide].classList.remove("active");
+        slides[nextSlide].classList.add("active");
+
+        currentSlide = nextSlide;
+
+        setTimeout(function() {
+            isChanging = false;
+        }, 800);
+    }
+
+    window.addEventListener(
+        "wheel",
+        function(event) {
+
+            if (event.deltaY > 0) {
+                changeSlide(1);
+            }
+
+            if (event.deltaY < 0) {
+                changeSlide(-1);
+            }
+
+        },
+        { passive: true }
+    );
+}
+
 const photography = document.querySelector(".photography");
 
 if (photography) {
