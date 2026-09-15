@@ -29,75 +29,66 @@ const images = [
     "images/showreel_still_28.jpg"
 ];
 
-
-// --------------------
-// PRELOAD IMAGES
-// --------------------
-
 images.forEach(function(image) {
     const preload = new Image();
     preload.src = image;
 });
 
-
-// --------------------
-// HOMEPAGE
-// --------------------
-
 const home = document.querySelector(".home");
 
 if (home) {
 
-    // Start with a random image
     let currentImage = Math.floor(Math.random() * images.length);
 
     home.style.backgroundImage =
         `url("${images[currentImage]}")`;
 
-
-    // --------------------
-    // MOUSE MOVEMENT
-    // --------------------
+    let imageHistory = [currentImage];
 
     let lastMouseX = 0;
     let lastMouseY = 0;
 
     const movementThreshold = 250;
-
+    const cooldown = 4;
 
     document.addEventListener("mousemove", function(event) {
 
         const distanceX = Math.abs(event.clientX - lastMouseX);
         const distanceY = Math.abs(event.clientY - lastMouseY);
 
-
         if (
             distanceX > movementThreshold ||
             distanceY > movementThreshold
         ) {
 
-            // Pick a random image
-            let newImage;
+            let availableImages = [];
 
-            do {
-                newImage = Math.floor(Math.random() * images.length);
+            for (let i = 0; i < images.length; i++) {
+
+                if (!imageHistory.includes(i)) {
+                    availableImages.push(i);
+                }
+
             }
-            while (newImage === currentImage && images.length > 1);
 
+            let newImage =
+                availableImages[
+                    Math.floor(Math.random() * availableImages.length)
+                ];
 
             currentImage = newImage;
 
-
-            // Change image
             home.style.backgroundImage =
                 `url("${images[currentImage]}")`;
 
+            imageHistory.push(currentImage);
 
-            // Remember this mouse position
+            if (imageHistory.length > cooldown) {
+                imageHistory.shift();
+            }
+
             lastMouseX = event.clientX;
             lastMouseY = event.clientY;
         }
-
     });
-
 }
