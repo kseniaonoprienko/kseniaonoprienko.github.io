@@ -111,6 +111,110 @@ nav {
     background-repeat: no-repeat;
 }
 
+/* =========================
+   PROJECT OVERLAY
+   ========================= */
+
+.project-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 500;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: opacity 0.35s ease,
+                visibility 0.35s ease;
+}
+
+.project-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Image + information box */
+
+.project-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 50px;
+
+    max-width: 1100px;
+    max-height: 70vh;
+}
+
+/* Image */
+
+.project-image {
+    height: 60vh;
+    max-height: 600px;
+}
+
+.project-image img {
+    display: block;
+
+    width: auto;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* White information box */
+
+.project-info {
+    width: 320px;
+
+    background: white;
+    color: black;
+
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.project-info h1 {
+    margin: 0 0 12px 0;
+
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+
+.project-year {
+    margin: 0 0 30px 0;
+
+    font-size: 15px;
+}
+
+
+.project-description {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.project-content {
+    cursor: pointer;
+}
 
 /* --------------------
    MOBILE
@@ -267,6 +371,48 @@ nav {
 }
 
 /* --------------------
+   PHOTOGRAPHY PAGE
+-------------------- */
+
+.photography-page {
+    background: white;
+    color: black;
+    overflow: hidden;
+}
+
+.photography {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.photo-stage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-stage img {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 700px;
+    height: auto;
+
+    transform: translate(-50%, -50%) scale(0.7);
+
+    pointer-events: none;
+    user-select: none;
+
+    opacity: 1;
+}
+
+/* --------------------
    INFO PAGE
 -------------------- */
 
@@ -321,4 +467,13 @@ nav {
 
 .info-text p + p {
     margin-top: 30px;
+}
+
+.info-text a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
 }
