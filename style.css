@@ -134,18 +134,17 @@ nav {
 }
 
 .reel {
+    position: fixed;
+    top: 0;
+    left: 0;
+
     width: 100vw;
     height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .reel-video {
-    width: 70vw;
-    max-width: 1200px;
-    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
 }
 
 .reel-video iframe {
