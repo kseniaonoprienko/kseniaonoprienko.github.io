@@ -23,7 +23,10 @@ const images = [
     "images/showreel_still_22.jpg",
     "images/showreel_still_23.jpg",
     "images/showreel_still_24.jpg",
-    "images/showreel_still_25.jpg"
+    "images/showreel_still_25.jpg",
+    "images/showreel_still_26.jpg",
+    "images/showreel_still_27.jpg",
+    "images/showreel_still_28.jpg"
 ];
 
 
