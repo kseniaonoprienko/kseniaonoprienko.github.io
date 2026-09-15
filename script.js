@@ -93,202 +93,175 @@ if (home) {
     });
 }
 
-const graphicDesign = document.querySelector(".graphicdesign");
-
-if (graphicDesign) {
-
-    const slides = document.querySelectorAll(".graphic-slide");
-
-    let currentSlide = 0;
-    let isChanging = false;
-
-    function changeSlide(direction) {
-
-        if (isChanging) {
-            return;
-        }
-
-        let nextSlide = currentSlide + direction;
-
-        // Loop from last image to first
-        if (nextSlide >= slides.length) {
-            nextSlide = 0;
-        }
-
-        // Loop from first image to last
-        if (nextSlide < 0) {
-            nextSlide = slides.length - 1;
-        }
-
-        isChanging = true;
-
-        slides[currentSlide].classList.remove("active");
-        slides[nextSlide].classList.add("active");
-
-        currentSlide = nextSlide;
-
-        setTimeout(function() {
-            isChanging = false;
-        }, 800);
-    }
-
-    graphicDesign.addEventListener("wheel", function(event) {
-
-        if (event.deltaY > 0) {
-            changeSlide(1);
-        }
-
-        if (event.deltaY < 0) {
-            changeSlide(-1);
-        }
-
-    }, { passive: true });
-
-}
-
 const photography = document.querySelector(".photography");
 
 if (photography) {
 
-    const images = [
-        "images/photography/photography_01.jpg",
-        "images/photography/photography_02.jpg",
-        "images/photography/photography_03.jpg",
-        "images/photography/photography_04.jpg",
-        "images/photography/photography_05.jpg",
-        "images/photography/photography_06.jpg",
-        "images/photography/photography_07.jpg",
-        "images/photography/photography_08.jpg",
-        "images/photography/photography_09.jpg",
-        "images/photography/photography_10.jpg",
-        "images/photography/photography_11.jpg",
-        "images/photography/photography_12.jpg",
-        "images/photography/photography_13.jpg",
-        "images/photography/photography_14.jpg",
-        "images/photography/photography_15.jpg",
-        "images/photography/photography_16.jpg",
-        "images/photography/photography_17.jpg",
-        "images/photography/photography_18.jpg",
-        "images/photography/photography_19.jpg",
-        "images/photography/photography_20.jpg",
-        "images/photography/photography_21.jpg",
-        "images/photography/photography_22.jpg",
-        "images/photography/photography_23.jpg",
-        "images/photography/photography_24.jpg",
-        "images/photography/photography_25.jpg",
-        "images/photography/photography_26.jpg",
-        "images/photography/photography_27.jpg",
-        "images/photography/photography_28.jpg",
-        "images/photography/photography_29.jpg",
-        "images/photography/photography_30.jpg",
-        "images/photography/photography_31.jpg",
-        "images/photography/photography_32.jpg",
-        "images/photography/photography_33.jpg",
-        "images/photography/photography_34.jpg",
-        "images/photography/photography_35.jpg",
-        "images/photography/photography_36.jpg",
-        "images/photography/photography_37.jpg",
-        "images/photography/photography_38.jpg",
-        "images/photography/photography_39.jpg",
-        "images/photography/photography_40.jpg",
-        "images/photography/photography_41.jpg",
-        "images/photography/photography_42.jpg",
-        "images/photography/photography_43.jpg",
-        "images/photography/photography_44.jpg",
-        "images/photography/photography_45.jpg"
-    ];
+    const photoPaths = [];
 
-    const layers = document.querySelectorAll(".photo-layer");
+    for (let i = 1; i <= 45; i++) {
+
+        const number =
+            String(i).padStart(2, "0");
+
+        photoPaths.push(
+            `images/photography/photography_${number}.jpg`
+        );
+    }
+
+    const threshold = 80;
+    const visiblePhotos = 5;
+    const maxMovement = threshold * 3;
 
     let currentIndex = 0;
-    let isChanging = false;
 
-    function randomPosition() {
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
 
-        const x = 15 + Math.random() * 70;
-        const y = 20 + Math.random() * 60;
+    let distanceSinceLastPhoto = 0;
 
-        return {
-            left: x + "%",
-            top: y + "%"
-        };
+    const photoStage =
+        photography.querySelector(".photo-stage");
+
+
+    /*
+     * Create a photo.
+     */
+    function showNextPhoto(x, y) {
+
+        const photo = document.createElement("img");
+
+        photo.src = photoPaths[currentIndex];
+
+        photo.style.position = "absolute";
+        photo.style.left = `${x}px`;
+        photo.style.top = `${y}px`;
+
+        photo.style.width = "700px";
+        photo.style.height = "auto";
+
+        photo.style.transform =
+            "translate(-50%, -50%) scale(0.6)";
+
+        photo.style.pointerEvents = "none";
+        photo.style.userSelect = "none";
+
+        photo.style.opacity = "1";
+
+        photoStage.appendChild(photo);
+
+
+        /*
+         * Remove the oldest photo only AFTER
+         * the new photo has been added.
+         */
+        if (photoStage.children.length > visiblePhotos) {
+
+            photoStage.removeChild(
+                photoStage.firstElementChild
+            );
+        }
+
+
+        /*
+         * Next image.
+         */
+        currentIndex++;
+
+        if (currentIndex >= photoPaths.length) {
+            currentIndex = 0;
+        }
     }
 
-    function showPhoto(layer, imageIndex) {
 
-        layer.innerHTML = "";
+    /*
+     * FIRST PHOTO
+     */
+    showNextPhoto(
+        window.innerWidth / 2,
+        window.innerHeight / 2
+    );
 
-        const image = document.createElement("img");
 
-        image.src = images[imageIndex];
+    /*
+     * MOUSE MOVEMENT
+     */
+    window.addEventListener("mousemove", function(event) {
 
-        layer.appendChild(image);
+        const currentX = event.clientX;
+        const currentY = event.clientY;
 
-        const position = randomPosition();
+        const dx = currentX - lastX;
+        const dy = currentY - lastY;
 
-        layer.style.left = position.left;
-        layer.style.top = position.top;
+        const segmentLength =
+            Math.sqrt(dx * dx + dy * dy);
 
-        layer.classList.add("active");
-    }
 
-    function changePhoto(direction) {
-
-        if (isChanging) {
+        if (segmentLength === 0) {
             return;
         }
 
-        isChanging = true;
 
-        currentIndex += direction;
+        /*
+         * Very large cursor jumps are ignored.
+         * The existing trail stays visible.
+         */
+        if (segmentLength > maxMovement) {
 
-        if (currentIndex >= images.length) {
-            currentIndex = 0;
+            lastX = currentX;
+            lastY = currentY;
+
+            return;
         }
 
-        if (currentIndex < 0) {
-            currentIndex = images.length - 1;
+
+        let remainingDistance = segmentLength;
+
+        let startX = lastX;
+        let startY = lastY;
+
+
+        /*
+         * Create a photo every 80px.
+         */
+        while (
+            distanceSinceLastPhoto + remainingDistance >= threshold
+        ) {
+
+            const distanceToPhoto =
+                threshold - distanceSinceLastPhoto;
+
+            const ratio =
+                distanceToPhoto / remainingDistance;
+
+
+            const photoX =
+                startX +
+                (currentX - startX) * ratio;
+
+            const photoY =
+                startY +
+                (currentY - startY) * ratio;
+
+
+            showNextPhoto(photoX, photoY);
+
+
+            startX = photoX;
+            startY = photoY;
+
+            remainingDistance -= distanceToPhoto;
+
+            distanceSinceLastPhoto = 0;
         }
 
-        const layer = layers[currentIndex % 3];
 
-        layer.classList.remove("active");
+        distanceSinceLastPhoto += remainingDistance;
 
-        setTimeout(function() {
+        lastX = currentX;
+        lastY = currentY;
 
-            showPhoto(layer, currentIndex);
-
-        }, 100);
-
-        setTimeout(function() {
-
-            isChanging = false;
-
-        }, 800);
-    }
-
-    showPhoto(layers[0], 0);
-
-    if (images.length > 1) {
-        showPhoto(layers[1], 1);
-    }
-
-    if (images.length > 2) {
-        showPhoto(layers[2], 2);
-    }
-
-    currentIndex = 2;
-
-    window.addEventListener("wheel", function(event) {
-
-        if (event.deltaY > 0) {
-            changePhoto(1);
-        }
-
-        if (event.deltaY < 0) {
-            changePhoto(-1);
-        }
-
-    }, { passive: true });
+    });
 
 }
