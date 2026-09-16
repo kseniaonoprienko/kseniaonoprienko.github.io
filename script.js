@@ -415,8 +415,102 @@ const graphicDesign =
 
 if (graphicDesign) {
 
+    /*
+     * Create paths for all
+     * 13 graphic design images.
+     */
+
+    const graphicPaths = [];
+
+    for (
+        let i = 1;
+        i <= 13;
+        i++
+    ) {
+
+        graphicPaths.push(
+            `${CLOUDINARY_BASE}f_auto,q_auto,w_2000/graphic_design_${i}.jpg`
+        );
+
+    }
+
+
+    /*
+     * Preload graphic design images.
+     */
+
+    graphicPaths.forEach(
+        function(path) {
+
+            const preload =
+                new Image();
+
+            preload.src = path;
+
+        }
+    );
+
+
+    /*
+     * Create the slides.
+     */
+
+    graphicPaths.forEach(
+        function(path, index) {
+
+            const slide =
+                document.createElement(
+                    "div"
+                );
+
+
+            slide.className =
+                "graphic-slide";
+
+
+            if (index === 0) {
+
+                slide.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                path;
+
+
+            image.alt =
+                `Graphic design project ${index + 1}`;
+
+
+            slide.appendChild(
+                image
+            );
+
+
+            graphicDesign.appendChild(
+                slide
+            );
+
+        }
+    );
+
+
+    /*
+     * Get the slides after
+     * creating them.
+     */
+
     const slides =
-        document.querySelectorAll(
+        graphicDesign.querySelectorAll(
             ".graphic-slide"
         );
 
@@ -425,6 +519,10 @@ if (graphicDesign) {
 
     let isChanging = false;
 
+
+    /*
+     * Change graphic design image.
+     */
 
     function changeSlide(direction) {
 
@@ -485,6 +583,10 @@ if (graphicDesign) {
 
     }
 
+
+    /*
+     * Mouse wheel navigation.
+     */
 
     window.addEventListener(
         "wheel",
@@ -598,134 +700,143 @@ if (photography) {
             ".photo-stage"
         );
 
-        const photoCounter =
-    photography.querySelector(
-        ".photo-counter"
-    );
 
-    /*
- * Create a photo.
- */
-
-function showNextPhoto(x, y) {
-
-    const photo =
-        document.createElement(
-            "img"
+    const photoCounter =
+        photography.querySelector(
+            ".photo-counter"
         );
 
 
-    photo.src =
-        photoPaths[currentIndex];
-
-
-    photo.style.position =
-        "absolute";
-
-
-    photo.style.left =
-        `${x}px`;
-
-
-    photo.style.top =
-        `${y}px`;
-
-
-    photo.style.width =
-        "700px";
-
-
-    photo.style.height =
-        "auto";
-
-
-    photo.style.transform =
-        "translate(-50%, -50%) scale(0.6)";
-
-
-    photo.style.pointerEvents =
-        "none";
-
-
-    photo.style.userSelect =
-        "none";
-
-
-    photo.style.opacity =
-        "1";
-
-
-    photoStage.appendChild(
-        photo
-    );
-
-
     /*
-     * Keep only five photos.
+     * Create a photo.
      */
 
-    if (
-        photoStage.children.length >
-        visiblePhotos
-    ) {
+    function showNextPhoto(x, y) {
 
-        photoStage.removeChild(
-            photoStage.firstElementChild
+        const photo =
+            document.createElement(
+                "img"
+            );
+
+
+        photo.src =
+            photoPaths[currentIndex];
+
+
+        photo.style.position =
+            "absolute";
+
+
+        photo.style.left =
+            `${x}px`;
+
+
+        photo.style.top =
+            `${y}px`;
+
+
+        photo.style.width =
+            "700px";
+
+
+        photo.style.height =
+            "auto";
+
+
+        photo.style.transform =
+            "translate(-50%, -50%) scale(0.6)";
+
+
+        photo.style.pointerEvents =
+            "none";
+
+
+        photo.style.userSelect =
+            "none";
+
+
+        photo.style.opacity =
+            "1";
+
+
+        photoStage.appendChild(
+            photo
         );
 
+
+        /*
+         * Keep only five photos.
+         */
+
+        if (
+            photoStage.children.length >
+            visiblePhotos
+        ) {
+
+            photoStage.removeChild(
+                photoStage.firstElementChild
+            );
+
+        }
+
+
+        /*
+         * Update photograph counter.
+         */
+
+        if (photoCounter) {
+
+            const displayNumber =
+                String(
+                    currentIndex + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            const totalNumber =
+                String(
+                    photoPaths.length
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            photoCounter.textContent =
+                `${displayNumber}/${totalNumber}`;
+
+        }
+
+
+        /*
+         * Move to next photograph.
+         */
+
+        currentIndex++;
+
+
+        if (
+            currentIndex >=
+            photoPaths.length
+        ) {
+
+            currentIndex = 0;
+
+        }
+
     }
 
 
     /*
-     * Update photograph counter.
+     * First photo.
      */
 
-    if (photoCounter) {
-
-        const displayNumber =
-            String(currentIndex + 1).padStart(
-                2,
-                "0"
-            );
-
-        const totalNumber =
-            String(photoPaths.length).padStart(
-                2,
-                "0"
-            );
-
-        photoCounter.textContent =
-            `${displayNumber}/${totalNumber}`;
-
-    }
-
-
-    /*
-     * Move to next photograph.
-     */
-
-    currentIndex++;
-
-    if (
-        currentIndex >=
-        photoPaths.length
-    ) {
-
-        currentIndex = 0;
-
-    }
-
-}
-
-
-/*
- * First photo.
- */
-
-showNextPhoto(
-    window.innerWidth / 2,
-    window.innerHeight / 2
-);
+    showNextPhoto(
+        window.innerWidth / 2,
+        window.innerHeight / 2
+    );
 
 
     /*
