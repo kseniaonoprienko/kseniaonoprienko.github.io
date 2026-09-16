@@ -2,51 +2,77 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Reel — Ksenia Onoprienko</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
+
 <body class="reel-page">
+
 
     <header>
 
         <nav>
 
+
             <a href="index.html" class="site-name">
                 Ksenia Onoprienko
             </a>
 
+
+            <!-- FILM PROJECTS -->
+
             <div class="menu-item">
 
-<a href="index.html" class="menu-button">
-    Film Projects
-</a>
+                <a href="index.html" class="menu-button">
+                    Film Projects
+                </a>
 
                 <div class="dropdown">
 
-                    <a href="nakilla.html">
+                    <a href="#"
+                       class="project-trigger"
+                       data-project="nakilla">
                         Näkillä on limaiset hiukset
                     </a>
 
-                    <a href="mun-makuun.html">
+                    <a href="#"
+                       class="project-trigger"
+                       data-project="mun-makuun">
                         Mun makuun
                     </a>
 
-                    <a href="limbo.html">
+                    <a href="#"
+                       class="project-trigger"
+                       data-project="limbo">
                         Limbo
+                    </a>
+
+                    <a href="#"
+                       class="project-trigger"
+                       data-project="out-of-memory">
+                        Out of Memory
                     </a>
 
                 </div>
 
             </div>
 
+
+            <!-- REEL -->
+
             <a href="reel.html">
                 Reel
             </a>
+
+
+            <!-- OTHER WORK -->
 
             <div class="menu-item">
 
@@ -72,32 +98,204 @@
 
             </div>
 
+
+            <!-- INFO -->
+
             <a href="info.html">
                 Info
             </a>
+
 
         </nav>
 
     </header>
 
 
-<main class="reel">
 
-    <div class="reel-video">
+    <!-- REEL -->
 
-        <iframe
-            src="https://player.vimeo.com/video/1226992420?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1"
-            frameborder="0"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            title="Ksenia Onoprienko Showreel 2026">
-        </iframe>
+    <main class="reel">
+
+        <div class="reel-video">
+
+            <iframe
+                src="https://player.vimeo.com/video/1226992420?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                title="Ksenia Onoprienko Showreel 2026">
+            </iframe>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- FILM PROJECT OVERLAYS -->
+
+
+    <!-- NÄKILLÄ -->
+
+    <div class="project-overlay" id="nakilla-overlay">
+
+        <div class="project-content">
+
+            <div class="project-image">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1200/image_1.jpg"
+                    alt="Näkillä on limaiset hiukset">
+
+            </div>
+
+
+            <div class="project-info">
+
+                <h1>
+                    Näkillä on limaiset hiukset
+                </h1>
+
+                <p class="project-year">
+                    2026
+                </p>
+
+                <p class="project-description">
+                    A summer drama about a bittersweet
+                    reunion between cousins, where past and
+                    present collide and they find a world where
+                    nothing needs pretending.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
-</main>
 
+
+    <!-- MUN MAKUUN -->
+
+    <div class="project-overlay" id="mun-makuun-overlay">
+
+        <div class="project-content">
+
+            <div class="project-image">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1200/image_2.jpg"
+                    alt="Mun makuun">
+
+            </div>
+
+
+            <div class="project-info">
+
+                <h1>
+                    Mun makuun
+                </h1>
+
+                <p class="project-year">
+                    2025
+                </p>
+
+                <p class="project-description">
+                    Feel-good romantic comedy that tells
+                    about Tiina's journey to self-love through
+                    heart candies.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- LIMBO -->
+
+    <div class="project-overlay" id="limbo-overlay">
+
+        <div class="project-content">
+
+            <div class="project-image">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1200/image_3.jpg"
+                    alt="Limbo">
+
+            </div>
+
+
+            <div class="project-info">
+
+                <h1>
+                    Limbo
+                </h1>
+
+                <p class="project-year">
+                    2022
+                </p>
+
+                <p class="project-description">
+                    In a surreal liminal space, Lydia grapples
+                    with her past to find peace and
+                    move forward.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- OUT OF MEMORY -->
+
+    <div class="project-overlay" id="out-of-memory-overlay">
+
+        <div class="project-content">
+
+            <div class="project-image">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1200/image_4.jpg"
+                    alt="Out of Memory">
+
+            </div>
+
+
+            <div class="project-info">
+
+                <h1>
+                    Out of Memory
+                </h1>
+
+                <p class="project-year">
+                    2023
+                </p>
+
+                <p class="project-description">
+                    Sci-fi quest, where an outdated android and
+                    its friend embark on a quest for survival. But
+                    as the android doubts its worth, they must
+                    confront hard truths.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
+
 
 </body>
 

@@ -598,107 +598,134 @@ if (photography) {
             ".photo-stage"
         );
 
+        const photoCounter =
+    photography.querySelector(
+        ".photo-counter"
+    );
 
     /*
-     * Create a photo.
-     */
+ * Create a photo.
+ */
 
-    function showNextPhoto(x, y) {
+function showNextPhoto(x, y) {
 
-        const photo =
-            document.createElement(
-                "img"
-            );
-
-
-        photo.src =
-            photoPaths[currentIndex];
-
-
-        photo.style.position =
-            "absolute";
-
-
-        photo.style.left =
-            `${x}px`;
-
-
-        photo.style.top =
-            `${y}px`;
-
-
-        photo.style.width =
-            "700px";
-
-
-        photo.style.height =
-            "auto";
-
-
-        photo.style.transform =
-            "translate(-50%, -50%) scale(0.6)";
-
-
-        photo.style.pointerEvents =
-            "none";
-
-
-        photo.style.userSelect =
-            "none";
-
-
-        photo.style.opacity =
-            "1";
-
-
-        photoStage.appendChild(
-            photo
+    const photo =
+        document.createElement(
+            "img"
         );
 
 
-        /*
-         * Keep only five photos.
-         */
-
-        if (
-            photoStage.children.length >
-            visiblePhotos
-        ) {
-
-            photoStage.removeChild(
-                photoStage.firstElementChild
-            );
-
-        }
+    photo.src =
+        photoPaths[currentIndex];
 
 
-        /*
-         * Move to next photograph.
-         */
-
-        currentIndex++;
+    photo.style.position =
+        "absolute";
 
 
-        if (
-            currentIndex >=
-            photoPaths.length
-        ) {
+    photo.style.left =
+        `${x}px`;
 
-            currentIndex = 0;
 
-        }
+    photo.style.top =
+        `${y}px`;
+
+
+    photo.style.width =
+        "700px";
+
+
+    photo.style.height =
+        "auto";
+
+
+    photo.style.transform =
+        "translate(-50%, -50%) scale(0.6)";
+
+
+    photo.style.pointerEvents =
+        "none";
+
+
+    photo.style.userSelect =
+        "none";
+
+
+    photo.style.opacity =
+        "1";
+
+
+    photoStage.appendChild(
+        photo
+    );
+
+
+    /*
+     * Keep only five photos.
+     */
+
+    if (
+        photoStage.children.length >
+        visiblePhotos
+    ) {
+
+        photoStage.removeChild(
+            photoStage.firstElementChild
+        );
 
     }
 
 
     /*
-     * First photo.
+     * Update photograph counter.
      */
 
-    showNextPhoto(
-        window.innerWidth / 2,
-        window.innerHeight / 2
-    );
+    if (photoCounter) {
+
+        const displayNumber =
+            String(currentIndex + 1).padStart(
+                2,
+                "0"
+            );
+
+        const totalNumber =
+            String(photoPaths.length).padStart(
+                2,
+                "0"
+            );
+
+        photoCounter.textContent =
+            `${displayNumber}/${totalNumber}`;
+
+    }
+
+
+    /*
+     * Move to next photograph.
+     */
+
+    currentIndex++;
+
+    if (
+        currentIndex >=
+        photoPaths.length
+    ) {
+
+        currentIndex = 0;
+
+    }
+
+}
+
+
+/*
+ * First photo.
+ */
+
+showNextPhoto(
+    window.innerWidth / 2,
+    window.innerHeight / 2
+);
 
 
     /*
