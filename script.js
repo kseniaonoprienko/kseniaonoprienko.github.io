@@ -35,20 +35,29 @@ images.forEach(function(image) {
 
 const home = document.querySelector(".home");
 
+
 if (home) {
 
     let currentImage =
         Math.floor(Math.random() * images.length);
 
+
     home.style.backgroundImage =
         `url("${images[currentImage]}")`;
 
+
     let imageHistory = [currentImage];
 
-    let lastMouseX = 0;
-    let lastMouseY = 0;
+
+    let lastMouseX =
+        window.innerWidth / 2;
+
+    let lastMouseY =
+        window.innerHeight / 2;
+
 
     const movementThreshold = 250;
+
     const cooldown = 4;
 
 
@@ -58,12 +67,15 @@ if (home) {
 
             const distanceX =
                 Math.abs(
-                    event.clientX - lastMouseX
+                    event.clientX -
+                    lastMouseX
                 );
+
 
             const distanceY =
                 Math.abs(
-                    event.clientY - lastMouseY
+                    event.clientY -
+                    lastMouseY
                 );
 
 
@@ -92,23 +104,48 @@ if (home) {
                 }
 
 
-                let newImage =
+                /*
+                 * Safety check.
+                 */
+
+                if (
+                    availableImages.length === 0
+                ) {
+
+                    availableImages =
+                        images.map(
+                            function(_, index) {
+                                return index;
+                            }
+                        );
+
+                }
+
+
+                const randomPosition =
+                    Math.floor(
+                        Math.random() *
+                        availableImages.length
+                    );
+
+
+                const newImage =
                     availableImages[
-                        Math.floor(
-                            Math.random() *
-                            availableImages.length
-                        )
+                        randomPosition
                     ];
 
 
-                currentImage = newImage;
+                currentImage =
+                    newImage;
 
 
                 home.style.backgroundImage =
                     `url("${images[currentImage]}")`;
 
 
-                imageHistory.push(currentImage);
+                imageHistory.push(
+                    currentImage
+                );
 
 
                 if (
@@ -240,7 +277,8 @@ function openProject(project) {
             "active"
         );
 
-        currentProject = project;
+        currentProject =
+            project;
 
     }
 
@@ -335,7 +373,9 @@ Object.values(
 
 
                 if (!currentProject) {
+
                     return;
+
                 }
 
 
@@ -405,7 +445,9 @@ if (graphicDesign) {
         }
 
 
-        if (nextSlide < 0) {
+        if (
+            nextSlide < 0
+        ) {
 
             nextSlide =
                 slides.length - 1;
@@ -615,8 +657,7 @@ if (photography) {
 
 
         /*
-         * Remove oldest photo
-         * after adding the new one.
+         * Keep only five photos.
          */
 
         if (
@@ -651,10 +692,7 @@ if (photography) {
 
 
     /*
-     * FIRST PHOTO
-     *
-     * Appears in the center
-     * when the page opens.
+     * First photo.
      */
 
     showNextPhoto(
@@ -664,7 +702,7 @@ if (photography) {
 
 
     /*
-     * MOUSE MOVEMENT
+     * Mouse movement.
      */
 
     window.addEventListener(
@@ -702,11 +740,7 @@ if (photography) {
 
 
             /*
-             * Very large cursor jumps
-             * are ignored.
-             *
-             * Existing photos remain
-             * exactly where they are.
+             * Ignore very large jumps.
              */
 
             if (
