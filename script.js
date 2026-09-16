@@ -15,14 +15,23 @@ const images = Array.from(
     (_, i) => {
         const number = i + 1;
 
-        return `${CLOUDINARY_BASE}f_auto,q_auto,w_2000/portfolio/home/showreel_still_${number}.jpg`;
+        return `${CLOUDINARY_BASE}f_auto,q_auto,w_2000/showreel_still_${number}.jpg`;
     }
 );
 
+
+/*
+ * Preload homepage images.
+ */
+
 images.forEach(function(image) {
+
     const preload = new Image();
+
     preload.src = image;
+
 });
+
 
 const home = document.querySelector(".home");
 
@@ -42,52 +51,87 @@ if (home) {
     const movementThreshold = 250;
     const cooldown = 4;
 
-    document.addEventListener("mousemove", function(event) {
 
-        const distanceX =
-            Math.abs(event.clientX - lastMouseX);
+    document.addEventListener(
+        "mousemove",
+        function(event) {
 
-        const distanceY =
-            Math.abs(event.clientY - lastMouseY);
+            const distanceX =
+                Math.abs(
+                    event.clientX - lastMouseX
+                );
 
-        if (
-            distanceX > movementThreshold ||
-            distanceY > movementThreshold
-        ) {
+            const distanceY =
+                Math.abs(
+                    event.clientY - lastMouseY
+                );
 
-            let availableImages = [];
 
-            for (let i = 0; i < images.length; i++) {
+            if (
+                distanceX > movementThreshold ||
+                distanceY > movementThreshold
+            ) {
 
-                if (!imageHistory.includes(i)) {
-                    availableImages.push(i);
+                let availableImages = [];
+
+
+                for (
+                    let i = 0;
+                    i < images.length;
+                    i++
+                ) {
+
+                    if (
+                        !imageHistory.includes(i)
+                    ) {
+
+                        availableImages.push(i);
+
+                    }
+
                 }
 
+
+                let newImage =
+                    availableImages[
+                        Math.floor(
+                            Math.random() *
+                            availableImages.length
+                        )
+                    ];
+
+
+                currentImage = newImage;
+
+
+                home.style.backgroundImage =
+                    `url("${images[currentImage]}")`;
+
+
+                imageHistory.push(currentImage);
+
+
+                if (
+                    imageHistory.length >
+                    cooldown
+                ) {
+
+                    imageHistory.shift();
+
+                }
+
+
+                lastMouseX =
+                    event.clientX;
+
+                lastMouseY =
+                    event.clientY;
+
             }
 
-            let newImage =
-                availableImages[
-                    Math.floor(
-                        Math.random() *
-                        availableImages.length
-                    )
-                ];
-
-            currentImage = newImage;
-
-            home.style.backgroundImage =
-                `url("${images[currentImage]}")`;
-
-            imageHistory.push(currentImage);
-
-            if (imageHistory.length > cooldown) {
-                imageHistory.shift();
-            }
-
-            lastMouseX = event.clientX;
-            lastMouseY = event.clientY;
         }
-    });
+    );
+
 }
 
 
@@ -96,21 +140,35 @@ if (home) {
    ========================= */
 
 const projectTriggers =
-    document.querySelectorAll(".project-trigger");
+    document.querySelectorAll(
+        ".project-trigger"
+    );
+
 
 const projectOverlays = {
+
     "nakilla":
-        document.querySelector("#nakilla-overlay"),
+        document.querySelector(
+            "#nakilla-overlay"
+        ),
 
     "mun-makuun":
-        document.querySelector("#mun-makuun-overlay"),
+        document.querySelector(
+            "#mun-makuun-overlay"
+        ),
 
     "limbo":
-        document.querySelector("#limbo-overlay"),
+        document.querySelector(
+            "#limbo-overlay"
+        ),
 
     "out-of-memory":
-        document.querySelector("#out-of-memory-overlay")
+        document.querySelector(
+            "#out-of-memory-overlay"
+        )
+
 };
+
 
 const projectOrder = [
     "nakilla",
@@ -119,77 +177,126 @@ const projectOrder = [
     "out-of-memory"
 ];
 
+
 let currentProject = null;
 
 
-// Open project from dropdown
-projectTriggers.forEach(function(trigger) {
+/*
+ * Open project from dropdown.
+ */
 
-    trigger.addEventListener("click", function(event) {
+projectTriggers.forEach(
+    function(trigger) {
 
-        event.preventDefault();
-        event.stopPropagation();
+        trigger.addEventListener(
+            "click",
+            function(event) {
 
-        openProject(trigger.dataset.project);
-    });
+                event.preventDefault();
 
-});
+                event.stopPropagation();
+
+                openProject(
+                    trigger.dataset.project
+                );
+
+            }
+        );
+
+    }
+);
 
 
-// Open a specific project
+/*
+ * Open a specific project.
+ */
+
 function openProject(project) {
 
-    Object.values(projectOverlays).forEach(
+    Object.values(
+        projectOverlays
+    ).forEach(
         function(overlay) {
 
             if (overlay) {
-                overlay.classList.remove("active");
+
+                overlay.classList.remove(
+                    "active"
+                );
+
             }
 
         }
     );
+
 
     const overlay =
         projectOverlays[project];
 
+
     if (overlay) {
 
-        overlay.classList.add("active");
+        overlay.classList.add(
+            "active"
+        );
 
         currentProject = project;
+
     }
+
 }
 
 
-// Close the current project
+/*
+ * Close the current project.
+ */
+
 function closeProject() {
 
-    Object.values(projectOverlays).forEach(
+    Object.values(
+        projectOverlays
+    ).forEach(
         function(overlay) {
 
             if (overlay) {
-                overlay.classList.remove("active");
+
+                overlay.classList.remove(
+                    "active"
+                );
+
             }
 
         }
     );
 
+
     currentProject = null;
+
 }
 
 
-// Click empty area = close project
-Object.values(projectOverlays).forEach(
+/*
+ * Click empty area = close project.
+ */
+
+Object.values(
+    projectOverlays
+).forEach(
     function(overlay) {
 
         if (!overlay) return;
+
 
         overlay.addEventListener(
             "click",
             function(event) {
 
-                if (event.target === overlay) {
+                if (
+                    event.target === overlay
+                ) {
+
                     closeProject();
+
                 }
 
             }
@@ -199,14 +306,26 @@ Object.values(projectOverlays).forEach(
 );
 
 
-// Click project composition = next project
-Object.values(projectOverlays).forEach(
+/*
+ * Click project composition = next project.
+ */
+
+Object.values(
+    projectOverlays
+).forEach(
     function(overlay) {
 
         if (!overlay) return;
 
+
         const content =
-            overlay.querySelector(".project-content");
+            overlay.querySelector(
+                ".project-content"
+            );
+
+
+        if (!content) return;
+
 
         content.addEventListener(
             "click",
@@ -214,20 +333,29 @@ Object.values(projectOverlays).forEach(
 
                 event.stopPropagation();
 
-                if (!currentProject) return;
+
+                if (!currentProject) {
+                    return;
+                }
+
 
                 const currentIndex =
                     projectOrder.indexOf(
                         currentProject
                     );
 
+
                 const nextIndex =
-                    (currentIndex + 1) %
+                    (
+                        currentIndex + 1
+                    ) %
                     projectOrder.length;
+
 
                 openProject(
                     projectOrder[nextIndex]
                 );
+
             }
         );
 
@@ -240,61 +368,109 @@ Object.values(projectOverlays).forEach(
    ========================= */
 
 const graphicDesign =
-    document.querySelector(".graphicdesign");
+    document.querySelector(
+        ".graphicdesign"
+    );
+
 
 if (graphicDesign) {
 
     const slides =
-        document.querySelectorAll(".graphic-slide");
+        document.querySelectorAll(
+            ".graphic-slide"
+        );
+
 
     let currentSlide = 0;
+
     let isChanging = false;
+
 
     function changeSlide(direction) {
 
         if (isChanging) return;
 
+
         let nextSlide =
             currentSlide + direction;
 
-        if (nextSlide >= slides.length) {
+
+        if (
+            nextSlide >=
+            slides.length
+        ) {
+
             nextSlide = 0;
+
         }
 
+
         if (nextSlide < 0) {
-            nextSlide = slides.length - 1;
+
+            nextSlide =
+                slides.length - 1;
+
         }
+
 
         isChanging = true;
 
+
         slides[currentSlide]
-            .classList.remove("active");
+            .classList.remove(
+                "active"
+            );
+
 
         slides[nextSlide]
-            .classList.add("active");
+            .classList.add(
+                "active"
+            );
 
-        currentSlide = nextSlide;
 
-        setTimeout(function() {
-            isChanging = false;
-        }, 800);
+        currentSlide =
+            nextSlide;
+
+
+        setTimeout(
+            function() {
+
+                isChanging = false;
+
+            },
+            800
+        );
+
     }
+
 
     window.addEventListener(
         "wheel",
         function(event) {
 
-            if (event.deltaY > 0) {
+            if (
+                event.deltaY > 0
+            ) {
+
                 changeSlide(1);
+
             }
 
-            if (event.deltaY < 0) {
+
+            if (
+                event.deltaY < 0
+            ) {
+
                 changeSlide(-1);
+
             }
 
         },
-        { passive: true }
+        {
+            passive: true
+        }
     );
+
 }
 
 
@@ -303,42 +479,67 @@ if (graphicDesign) {
    ========================= */
 
 const photography =
-    document.querySelector(".photography");
+    document.querySelector(
+        ".photography"
+    );
+
 
 if (photography) {
 
     const photoPaths = [];
 
-    for (let i = 1; i <= 45; i++) {
+
+    /*
+     * Create Cloudinary URLs
+     * for all 45 photographs.
+     */
+
+    for (
+        let i = 1;
+        i <= 45;
+        i++
+    ) {
 
         const number =
-            String(i).padStart(2, "0");
+            String(i).padStart(
+                2,
+                "0"
+            );
+
 
         photoPaths.push(
-            `${CLOUDINARY_BASE}f_auto,q_auto,w_1200/portfolio/photography/photography_${number}.jpg`
+            `${CLOUDINARY_BASE}f_auto,q_auto,w_1200/photography_${number}.jpg`
         );
+
     }
 
 
     /*
-     * Preload all photography images.
+     * Preload photography images.
      */
 
-    photoPaths.forEach(function(path) {
+    photoPaths.forEach(
+        function(path) {
 
-        const preload =
-            new Image();
+            const preload =
+                new Image();
 
-        preload.src = path;
+            preload.src = path;
 
-    });
+        }
+    );
 
 
     const threshold = 80;
+
     const visiblePhotos = 5;
-    const maxMovement = threshold * 3;
+
+    const maxMovement =
+        threshold * 3;
+
 
     let currentIndex = 0;
+
 
     let lastX =
         window.innerWidth / 2;
@@ -346,10 +547,14 @@ if (photography) {
     let lastY =
         window.innerHeight / 2;
 
+
     let distanceSinceLastPhoto = 0;
 
+
     const photoStage =
-        photography.querySelector(".photo-stage");
+        photography.querySelector(
+            ".photo-stage"
+        );
 
 
     /*
@@ -359,44 +564,59 @@ if (photography) {
     function showNextPhoto(x, y) {
 
         const photo =
-            document.createElement("img");
+            document.createElement(
+                "img"
+            );
+
 
         photo.src =
             photoPaths[currentIndex];
 
+
         photo.style.position =
             "absolute";
+
 
         photo.style.left =
             `${x}px`;
 
+
         photo.style.top =
             `${y}px`;
+
 
         photo.style.width =
             "700px";
 
+
         photo.style.height =
             "auto";
+
 
         photo.style.transform =
             "translate(-50%, -50%) scale(0.6)";
 
+
         photo.style.pointerEvents =
             "none";
+
 
         photo.style.userSelect =
             "none";
 
+
         photo.style.opacity =
             "1";
 
-        photoStage.appendChild(photo);
+
+        photoStage.appendChild(
+            photo
+        );
 
 
         /*
-         * Remove oldest photo only after
-         * new photo has been added.
+         * Remove oldest photo
+         * after adding the new one.
          */
 
         if (
@@ -407,14 +627,16 @@ if (photography) {
             photoStage.removeChild(
                 photoStage.firstElementChild
             );
+
         }
 
 
         /*
-         * Next image.
+         * Move to next photograph.
          */
 
         currentIndex++;
+
 
         if (
             currentIndex >=
@@ -422,12 +644,17 @@ if (photography) {
         ) {
 
             currentIndex = 0;
+
         }
+
     }
 
 
     /*
      * FIRST PHOTO
+     *
+     * Appears in the center
+     * when the page opens.
      */
 
     showNextPhoto(
@@ -450,11 +677,13 @@ if (photography) {
             const currentY =
                 event.clientY;
 
+
             const dx =
                 currentX - lastX;
 
             const dy =
                 currentY - lastY;
+
 
             const segmentLength =
                 Math.sqrt(
@@ -463,14 +692,21 @@ if (photography) {
                 );
 
 
-            if (segmentLength === 0) {
+            if (
+                segmentLength === 0
+            ) {
+
                 return;
+
             }
 
 
             /*
-             * Very large cursor jumps are ignored.
-             * Existing trail stays visible.
+             * Very large cursor jumps
+             * are ignored.
+             *
+             * Existing photos remain
+             * exactly where they are.
              */
 
             if (
@@ -478,22 +714,31 @@ if (photography) {
                 maxMovement
             ) {
 
-                lastX = currentX;
-                lastY = currentY;
+                lastX =
+                    currentX;
+
+                lastY =
+                    currentY;
 
                 return;
+
             }
 
 
             let remainingDistance =
                 segmentLength;
 
-            let startX = lastX;
-            let startY = lastY;
+
+            let startX =
+                lastX;
+
+            let startY =
+                lastY;
 
 
             /*
-             * Create a photo every 80px.
+             * Create a new photograph
+             * every 80px of movement.
              */
 
             while (
@@ -506,6 +751,7 @@ if (photography) {
                     threshold -
                     distanceSinceLastPhoto;
 
+
                 const ratio =
                     distanceToPhoto /
                     remainingDistance;
@@ -513,12 +759,19 @@ if (photography) {
 
                 const photoX =
                     startX +
-                    (currentX - startX) *
+                    (
+                        currentX -
+                        startX
+                    ) *
                     ratio;
+
 
                 const photoY =
                     startY +
-                    (currentY - startY) *
+                    (
+                        currentY -
+                        startY
+                    ) *
                     ratio;
 
 
@@ -528,22 +781,34 @@ if (photography) {
                 );
 
 
-                startX = photoX;
-                startY = photoY;
+                startX =
+                    photoX;
+
+                startY =
+                    photoY;
+
 
                 remainingDistance -=
                     distanceToPhoto;
 
-                distanceSinceLastPhoto = 0;
+
+                distanceSinceLastPhoto =
+                    0;
+
             }
 
 
             distanceSinceLastPhoto +=
                 remainingDistance;
 
-            lastX = currentX;
-            lastY = currentY;
+
+            lastX =
+                currentX;
+
+            lastY =
+                currentY;
 
         }
     );
+
 }
