@@ -424,7 +424,7 @@ if (graphicDesign) {
 
     for (
         let i = 1;
-        i <= 13;
+        i <= 14;
         i++
     ) {
 
@@ -617,6 +617,347 @@ if (graphicDesign) {
 
 }
 
+/* =========================
+   COMMERCIAL IMAGE CONVEYOR
+========================= */
+
+const commercialProjects =
+    document.querySelectorAll(
+        ".commercial-project:not(.ami-project)"
+    );
+
+commercialProjects.forEach(function(project) {
+
+    const container =
+        project.querySelector(".commercial-images");
+
+    if (!container) {
+        return;
+    }
+
+    const originalImages =
+        Array.from(
+            container.querySelectorAll("img")
+        );
+
+    if (originalImages.length === 0) {
+        return;
+    }
+
+    const speed = 100;
+    const spacing = 50;
+
+
+    /* =========================
+       PRELOAD IMAGES
+    ========================= */
+
+    const imagePromises =
+        originalImages.map(function(image) {
+
+            return new Promise(function(resolve) {
+
+                const src =
+                    image.currentSrc ||
+                    image.src;
+
+                const preload =
+                    new Image();
+
+                preload.onload = async function() {
+
+                    try {
+                        await preload.decode();
+                    } catch (error) {}
+
+                    resolve({
+                        src: src,
+                        width: preload.naturalWidth,
+                        height: preload.naturalHeight
+                    });
+
+                };
+
+                preload.onerror = function() {
+
+                    resolve({
+                        src: src,
+                        width: 1,
+                        height: 1
+                    });
+
+                };
+
+                preload.src = src;
+
+            });
+
+        });
+
+
+    Promise.all(imagePromises).then(function(data) {
+
+        startConveyor(data);
+
+    });
+
+
+    /* =========================
+       START CONVEYOR
+    ========================= */
+
+    function startConveyor(data) {
+
+        container.innerHTML = "";
+
+
+        const track =
+            document.createElement("div");
+
+        track.className =
+            "commercial-conveyor-track";
+
+        container.appendChild(track);
+
+
+        /*
+         * Create THREE identical sequences.
+         *
+         * This guarantees that there is
+         * always another image coming in
+         * from the left edge.
+         */
+
+        const sequenceCount = 3;
+
+
+        for (
+            let sequence = 0;
+            sequence < sequenceCount;
+            sequence++
+        ) {
+
+            data.forEach(function(item) {
+
+                const image =
+                    document.createElement("img");
+
+                image.className =
+                    "commercial-loop-image";
+
+                image.src =
+                    item.src;
+
+                image.alt = "";
+
+                image.draggable = false;
+
+
+                /*
+                 * Calculate image width.
+                 */
+
+                let width =
+                    Math.min(
+                        window.innerWidth * 0.44,
+                        700
+                    );
+
+
+                /*
+                 * Raja is narrower.
+                 */
+
+                if (
+                    project.classList.contains(
+                        "raja-project"
+                    )
+                ) {
+
+                    width =
+                        Math.min(
+                            window.innerWidth * 0.28,
+                            330
+                        );
+
+                }
+
+
+                const aspectRatio =
+                    item.width /
+                    item.height;
+
+                const height =
+                    width /
+                    aspectRatio;
+
+
+                image.style.width =
+                    width + "px";
+
+                image.style.height =
+                    height + "px";
+
+
+                track.appendChild(image);
+
+            });
+
+        }
+
+
+        /*
+         * Add spacing.
+         */
+
+        Array.from(
+            track.children
+        ).forEach(function(image, index) {
+
+            if (
+                index <
+                track.children.length - 1
+            ) {
+
+                image.style.marginRight =
+                    spacing + "px";
+
+            }
+
+        });
+
+
+        /*
+         * Measure the FIRST sequence.
+         */
+
+        let sequenceWidth = 0;
+
+
+        data.forEach(function(item) {
+
+            let width =
+                Math.min(
+                    window.innerWidth * 0.44,
+                    700
+                );
+
+
+            if (
+                project.classList.contains(
+                    "raja-project"
+                )
+            ) {
+
+                width =
+                    Math.min(
+                        window.innerWidth * 0.28,
+                        330
+                    );
+
+            }
+
+
+            sequenceWidth +=
+                width +
+                spacing;
+
+        });
+
+
+        sequenceWidth -= spacing;
+
+
+        /*
+         * Center the FIRST sequence
+         * initially.
+         */
+
+        const containerWidth =
+            container.clientWidth;
+
+
+        let position =
+            (
+                containerWidth -
+                sequenceWidth
+            ) / 2;
+
+
+        /*
+         * Move the entire track.
+         */
+
+        track.style.transform =
+            `translate3d(${position}px, -50%, 0)`;
+
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        let lastTime =
+            performance.now();
+
+
+        function animate(time) {
+
+            const delta =
+                (time - lastTime) /
+                1000;
+
+            lastTime =
+                time;
+
+
+            /*
+             * Move LEFT.
+             */
+
+            position +=
+                speed * delta;
+
+
+            /*
+             * When the first sequence
+             * has moved completely away,
+             * jump exactly one sequence
+             * width forward.
+             *
+             * Because the next copy is
+             * identical and directly behind
+             * it, this is invisible.
+             */
+
+            if (
+                position >=
+                -sequenceWidth
+            ) {
+
+                position -=
+                    sequenceWidth;
+
+            }
+
+
+            track.style.transform =
+                `translate3d(${position}px, -50%, 0)`;
+
+
+            requestAnimationFrame(
+                animate
+            );
+
+        }
+
+
+        requestAnimationFrame(
+            animate
+        );
+
+    }
+
+});
 
 /* =========================
    PHOTOGRAPHY

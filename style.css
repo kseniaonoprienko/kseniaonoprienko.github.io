@@ -266,55 +266,249 @@ nav {
     display: block;
 }
 
-/* --------------------
+/* =========================
    COMMERCIAL PAGE
--------------------- */
+   ========================= */
 
 .commercial-page {
-    background: black;
-    overflow: hidden;
+    background: white;
+    color: black;
+    overflow-x: hidden;
 }
+
+
+/* --------------------
+   COMMERCIAL CONTENT
+-------------------- */
 
 .commercial {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    width: 70vw;
-    height: 70vh;
-
-    margin: auto;
-
-    overflow: hidden;
-}
-
-.commercial-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-
     width: 100%;
-    height: 100%;
-
-    opacity: 0;
-
-    transition: opacity 0.8s ease;
+    padding-top: 150px;
 }
 
-.commercial-slide.active {
-    opacity: 1;
-}
 
-.commercial-slide img {
+.commercial-project {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
 
-    object-fit: contain;
-    object-position: center;
+    padding: 70px 40px 30px;
+}
 
+
+/* --------------------
+   PROJECT INFORMATION
+-------------------- */
+
+/* Project title */
+
+.commercial-heading h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.commercial-heading .project-year {
     display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.commercial-heading .project-role {
+    display: block;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+/* Horizontal projects */
+
+.tribedo-project .commercial-heading,
+.espoo-project .commercial-heading {
+    margin-bottom: 20px;
+}
+
+
+/* Vertical projects */
+
+.raja-project .commercial-heading,
+.ami-project .commercial-heading {
+    margin-bottom: 40px;
+}
+
+/* --------------------
+   IMAGE LINE
+-------------------- */
+
+.commercial-images img {
+    display: block;
+
+    width: 44vw;
+    max-width: 700px;
+    height: auto;
+
+    flex-shrink: 0;
+}
+
+.ami-project .commercial-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.commercial-images {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+}
+
+.commercial-conveyor-track {
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+
+    width: max-content;
+
+    height: auto;
+
+    will-change: transform;
+}
+
+.commercial-loop-image {
+    display: block;
+    flex-shrink: 0;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    transition:
+        transform 0.25s ease;
+
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.commercial-loop-image:hover {
+    transform: scale(1.08);
+}
+
+/* --------------------
+   PROJECT SPACING
+-------------------- */
+
+.tribedo-project,
+.raja-project,
+.espoo-project,
+.ami-project {
+    min-height: 100vh;
+}
+
+
+.ami-project .commercial-images img {
+    width: min(28vw, 330px);
+}
+
+
+
+/* --------------------
+   MOBILE
+-------------------- */
+
+@media (max-width: 700px) {
+
+    .commercial {
+        padding-top: 90px;
+    }
+
+
+    .commercial-project {
+        min-height: auto;
+
+        padding:
+            70px
+            20px
+            130px;
+    }
+
+
+    .commercial-heading {
+        margin-bottom: 40px;
+    }
+
+
+    .commercial-heading h1 {
+        font-size: 21px;
+    }
+
+
+    .commercial-heading p {
+        font-size: 14px;
+    }
+
+
+    /*
+     * On mobile, keep the same
+     * concept but make the images
+     * smaller so the composition
+     * remains visible.
+     */
+
+    .commercial-images {
+        justify-content: center;
+
+        padding:
+            20px 0
+            80px;
+    }
+
+
+    .commercial-images img {
+        width: 75vw;
+    }
+
+
+    .commercial-images img:nth-child(1) {
+        transform:
+            translateX(15vw);
+    }
+
+
+    .commercial-images img:nth-child(2) {
+        transform:
+            translateX(0);
+    }
+
+
+    .commercial-images img:nth-child(3) {
+        transform:
+            translateX(-15vw);
+    }
+
+
+    .commercial-images img:nth-child(4) {
+        transform:
+            translateX(-30vw);
+    }
+
+
+    .commercial-images img:nth-child(5) {
+        transform:
+            translateX(-45vw);
+    }
+
+
+    .raja-project .commercial-images img,
+    .ami-project .commercial-images img {
+        width: 55vw;
+    }
+
 }
 
 /* --------------------
