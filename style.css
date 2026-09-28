@@ -17,7 +17,7 @@ html {
 
 body {
     font-family: DM Sans, sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     color: white;
     background: black;
@@ -42,7 +42,7 @@ header {
 
     width: 100vw;
 
-    padding: 30px 40px 0 40px;
+    padding: 15px 40px 0 40px;
 
     z-index: 999;
 }
@@ -268,7 +268,7 @@ nav {
 
 /* =========================
    COMMERCIAL PAGE
-   ========================= */
+========================= */
 
 .commercial-page {
     background: white;
@@ -276,237 +276,492 @@ nav {
     overflow-x: hidden;
 }
 
+/* =========================
+   COMMERCIAL SMOOTH SCROLL
+========================= */
 
-/* --------------------
-   COMMERCIAL CONTENT
--------------------- */
+#smooth-wrapper {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+#smooth-content {
+    width: 100%;
+    overflow: visible;
+}
+
+/* =========================
+   COMMERCIAL CONTAINER
+========================= */
 
 .commercial {
     width: 100%;
-    padding-top: 150px;
 }
 
+
+/* =========================
+   PROJECT
+========================= */
 
 .commercial-project {
     width: 100%;
     min-height: 100vh;
 
-    padding: 70px 40px 30px;
+    padding: 80px 6vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8vw;
 }
 
 
-/* --------------------
-   PROJECT INFORMATION
--------------------- */
+/* =========================
+   PROJECT TEXT
+========================= */
 
-/* Project title */
+.commercial-text {
+    flex: 0 0 22vw;
+    max-width: 280px;
+    align-self: center;
+}
 
-.commercial-heading h1 {
+
+.commercial-number {
+    margin-bottom: 35px;
+
+    font-size: 13px;
+    line-height: 1;
+
+    opacity: 0.55;
+}
+
+
+.commercial-text h1 {
     margin: 0 0 8px 0;
+
     font-size: 24px;
-    font-weight: 400;
     line-height: 1.1;
+    font-weight: 400;
 }
 
-.commercial-heading .project-year {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
 
-.commercial-heading .project-role {
-    display: block;
+.commercial-year {
+    margin: 0 0 35px 0;
+
     font-size: 15px;
-    line-height: 1.45;
-}
-
-/* Horizontal projects */
-
-.tribedo-project .commercial-heading,
-.espoo-project .commercial-heading {
-    margin-bottom: 20px;
+    line-height: 1.3;
 }
 
 
-/* Vertical projects */
+.commercial-role {
+    margin: 0 0 15px 0;
 
-.raja-project .commercial-heading,
-.ami-project .commercial-heading {
-    margin-bottom: 40px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: italic;
 }
 
-/* --------------------
-   IMAGE LINE
--------------------- */
 
-.commercial-images img {
-    display: block;
+.commercial-description {
+    margin: 0 0 30px 0;
 
-    width: 44vw;
-    max-width: 700px;
-    height: auto;
+    max-width: 320px;
 
-    flex-shrink: 0;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-.ami-project .commercial-images {
+
+/* =========================
+   GALLERY
+========================= */
+
+.commercial-gallery {
+    flex: 1;
+
+    min-width: 0;
+
     display: flex;
+    flex-direction: column;
+
+    align-items: center;
     justify-content: center;
-    align-items: center;
 }
 
-.commercial-images {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    overflow: hidden;
+.commercial-still .commercial-gallery-image {
+    width: min(55vw, 850px);
+}
+
+.commercial-still .commercial-gallery-image img {
     display: block;
-    padding: 0;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
-.commercial-conveyor-track {
-    position: absolute;
+.commercial-still .commercial-photo-credit {
+    width: min(55vw, 850px);
+    text-align: left;
+}
 
-    left: 0;
-    top: 50%;
+/* =========================
+   IMAGE AREA
+========================= */
+
+.commercial-gallery-image {
+    width: 100%;
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    width: max-content;
-
-    height: auto;
-
-    will-change: transform;
+    overflow: hidden;
 }
 
-.commercial-loop-image {
+.commercial-still .commercial-gallery-image img {
     display: block;
-    flex-shrink: 0;
+    width: min(55vw, 850px);
+    height: auto;
+    object-fit: contain;
+}
 
-    position: relative;
 
-    transform-origin: center center;
+/* =========================
+   HORIZONTAL IMAGES
+========================= */
+
+.commercial-horizontal
+.commercial-gallery-image video {
+
+    width: min(55vw, 850px);
+    height: auto;
+}
+
+/* =========================
+   VERTICAL IMAGES
+========================= */
+
+.commercial-vertical
+.commercial-gallery-image video {
+    width: auto;
+    height: 65vh;
+    max-width: 360px;
+    object-fit: contain;
+}
+
+/* =========================
+   GALLERY CONTROLS
+========================= */
+
+.commercial-gallery-controls {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 22px;
+
+    margin-top: 25px;
+
+    font-size: 13px;
+}
+
+
+/* Buttons */
+
+.gallery-prev,
+.gallery-next {
+
+    border: none;
+
+    padding: 0;
+
+    background: none;
+
+    color: black;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    line-height: 1;
 
     transition:
-        transform 0.25s ease;
-
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.commercial-loop-image:hover {
-    transform: scale(1.08);
-}
-
-/* --------------------
-   PROJECT SPACING
--------------------- */
-
-.tribedo-project,
-.raja-project,
-.espoo-project,
-.ami-project {
-    min-height: 100vh;
+        opacity 0.2s ease;
 }
 
 
-.ami-project .commercial-images img {
-    width: min(28vw, 330px);
+.gallery-prev:hover,
+.gallery-next:hover {
+
+    opacity: 0.45;
 }
 
 
+/* Counter */
 
-/* --------------------
+.gallery-counter {
+
+    min-width: 40px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   AMI
+========================= */
+
+.ami-project
+.commercial-gallery-image video {
+    width: auto;
+    height: 65vh;
+    max-width: 360px;
+    object-fit: contain;
+}
+
+/* =========================
+   OUTTAKES
+========================= */
+
+.commercial-outtakes {
+    width: 100%;
+    padding: 20px 6vw 100px 6vw;
+
+    background: white;
+    color: black;
+}
+
+.outtakes-header {
+    margin-bottom: 30px;
+
+    font-size: 15px;
+    line-height: 1;
+}
+
+
+/* HORIZONTAL SCROLL */
+
+.outtakes-grid {
+    height: 450px;
+    width: auto;
+    object-fit: contain;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 20px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding-bottom: 5px;
+
+    scrollbar-width: none;
+
+    cursor: grab;
+}
+
+.outtakes-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.outtakes-grid:active {
+    cursor: grabbing;
+}
+
+
+/* IMAGE FRAME */
+
+.outtakes-grid img {
+    display: block;
+
+    flex: 0 0 auto;
+
+    width: auto;
+    height: 450px;
+
+    object-fit: contain;
+
+    background: white;
+}
+
+.commercial-photo-credit {
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.2;
+    opacity: 0.5;
+}
+
+.commercial-still .commercial-photo-credit {
+    width: min(55vw, 850px);
+    text-align: left;
+}
+
+.outtakes-credit {
+    margin-top: 8px;
+}
+
+/* =========================
    MOBILE
--------------------- */
+========================= */
 
 @media (max-width: 700px) {
 
-    .commercial {
-        padding-top: 90px;
-    }
-
-
     .commercial-project {
+
         min-height: auto;
 
         padding:
-            70px
-            20px
-            130px;
+            80px
+            25px
+            120px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 55px;
     }
 
 
-    .commercial-heading {
-        margin-bottom: 40px;
+    .commercial-text {
+
+        flex: none;
+
+        width: 100%;
+
+        max-width: 100%;
     }
 
 
-    .commercial-heading h1 {
+    .commercial-number {
+
+        margin-bottom: 25px;
+    }
+
+
+    .commercial-text h1 {
+
         font-size: 21px;
     }
 
 
-    .commercial-heading p {
-        font-size: 14px;
+    .commercial-year {
+
+        margin-bottom: 25px;
     }
 
 
-    /*
-     * On mobile, keep the same
-     * concept but make the images
-     * smaller so the composition
-     * remains visible.
-     */
+    .commercial-role {
 
-    .commercial-images {
-        justify-content: center;
+        margin-bottom: 25px;
+    }
 
+
+    .commercial-description {
+
+        max-width: 100%;
+    }
+
+
+    .commercial-gallery {
+
+        width: 100%;
+    }
+
+
+    .commercial-gallery-image {
+
+        width: 100%;
+    }
+
+
+    .commercial-horizontal
+    .commercial-gallery-image video {
+
+        width: 100%;
+
+        max-width: none;
+
+        max-height: 60vh;
+    }
+
+
+    .commercial-vertical
+    .commercial-gallery-image video {
+
+        width: 65vw;
+
+        max-width: 330px;
+
+        max-height: 65vh;
+    }
+
+
+    .ami-project
+    .commercial-gallery-image video {
+
+        width: 70vw;
+
+        max-width: 350px;
+    }
+
+
+    .commercial-gallery-controls {
+
+        margin-top: 20px;
+
+        gap: 20px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .commercial-outtakes {
         padding:
-            20px 0
+            50px
+            25px
             80px;
     }
 
-
-    .commercial-images img {
-        width: 75vw;
+    .outtakes-header {
+        margin-bottom: 20px;
     }
 
+    .outtakes-grid {
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
 
-    .commercial-images img:nth-child(1) {
-        transform:
-            translateX(15vw);
+        scrollbar-width: none;
     }
 
-
-    .commercial-images img:nth-child(2) {
-        transform:
-            translateX(0);
+    .outtakes-grid::-webkit-scrollbar {
+        display: none;
     }
 
-
-    .commercial-images img:nth-child(3) {
-        transform:
-            translateX(-15vw);
-    }
-
-
-    .commercial-images img:nth-child(4) {
-        transform:
-            translateX(-30vw);
-    }
-
-
-    .commercial-images img:nth-child(5) {
-        transform:
-            translateX(-45vw);
-    }
-
-
-    .raja-project .commercial-images img,
-    .ami-project .commercial-images img {
-        width: 55vw;
+    .outtakes-grid img {
+        height: 220px;
     }
 
 }

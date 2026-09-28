@@ -284,7 +284,6 @@ function openProject(project) {
 
 }
 
-
 /*
  * Close the current project.
  */
@@ -402,562 +401,482 @@ Object.values(
     }
 );
 
+ /* =========================
+    COMMERCIAL GALLERIES
+ ========================= */
+
+const commercialGalleries =
+    document.querySelectorAll(
+        ".commercial-gallery"
+    );
+
+
+if (commercialGalleries.length) {
+
+    const galleryVideos = {
+
+        tribedo: [
+            "commercial_video_1.mp4",
+            "commercial_video_2.mp4",
+            "commercial_video_3.mp4"
+        ],
+
+        raja: [
+            "commercial_video_4.mp4",
+            "commercial_video_5.mp4",
+            "commercial_video_6.mp4"
+        ],
+
+        espoo: [
+            "commercial_video_7.mp4",
+            "commercial_video_8.mp4"
+        ],
+
+        ami: [
+            "commercial_video_9.mov"
+        ]
+
+    };
+
+
+    const galleryIndexes = {};
+
+
+    Object.keys(
+        galleryVideos
+    ).forEach(function(project) {
+
+        galleryIndexes[project] = 0;
+
+    });
+
+
+    commercialGalleries.forEach(
+        function(gallery) {
+
+            const project =
+                gallery.dataset.project;
+
+
+            const videos =
+                galleryVideos[project];
+
+
+            if (!videos) return;
+
+
+            const video =
+                gallery.querySelector(
+                    ".commercial-gallery-image video"
+                );
+
+
+            const counter =
+                gallery.querySelector(
+                    ".gallery-counter"
+                );
+
+
+            const previous =
+                gallery.querySelector(
+                    ".gallery-prev"
+                );
+
+
+            const next =
+                gallery.querySelector(
+                    ".gallery-next"
+                );
+
+
+            if (!video) return;
+
+
+            function videoURL(filename) {
+
+                return `${CLOUDINARY_BASE.replace(
+                    "/image/upload/",
+                    "/video/upload/"
+                )}f_auto,q_auto,w_1800/${filename}`;
+
+            }
+
+
+            function showVideo(index) {
+
+                galleryIndexes[project] =
+                    index;
+
+
+                video.pause();
+
+
+                video.src =
+                    videoURL(
+                        videos[index]
+                    );
+
+
+                video.load();
+
+
+                const number =
+                    String(index + 1)
+                        .padStart(2, "0");
+
+
+                const total =
+                    String(videos.length)
+                        .padStart(2, "0");
+
+
+                if (counter) {
+
+                    counter.textContent =
+                        `${number}/${total}`;
+
+                }
+
+
+                /*
+                 * Play immediately if the
+                 * project is currently visible.
+                 */
+
+                const rect =
+                    gallery.getBoundingClientRect();
+
+
+                const viewportHeight =
+                    window.innerHeight;
+
+
+                const visible =
+                    rect.top <
+                    viewportHeight * 0.75 &&
+                    rect.bottom >
+                    viewportHeight * 0.25;
+
+
+                if (visible) {
+
+                    video.play()
+                        .catch(
+                            function() {}
+                        );
+
+                }
+
+            }
+
+
+            /*
+             * Initial video.
+             */
+
+            showVideo(0);
+
+
+            /*
+             * Previous video.
+             */
+
+            if (previous) {
+
+                previous.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.stopPropagation();
+
+
+                        let index =
+                            galleryIndexes[project] - 1;
+
+
+                        if (index < 0) {
+
+                            index =
+                                videos.length - 1;
+
+                        }
+
+
+                        showVideo(index);
+
+                    }
+                );
+
+            }
+
+
+            /*
+             * Next video.
+             */
+
+            if (next) {
+
+                next.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.stopPropagation();
+
+
+                        let index =
+                            galleryIndexes[project] + 1;
+
+
+                        if (
+                            index >=
+                            videos.length
+                        ) {
+
+                            index = 0;
+
+                        }
+
+
+                        showVideo(index);
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * =========================
+     * PLAY VIDEOS ON SCROLL
+     * =========================
+     */
+
+    const videoObserver =
+        new IntersectionObserver(
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        const video =
+                            entry.target;
+
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            video.muted =
+                                true;
+
+
+                            video.play()
+                                .catch(
+                                    function() {}
+                                );
+
+                        } else {
+
+                            video.pause();
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.35
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".commercial-gallery-image video"
+        )
+        .forEach(
+            function(video) {
+
+                videoObserver.observe(
+                    video
+                );
+
+            }
+        );
+
+}
+
+
+ /* =========================
+    COMMERCIAL SMOOTH SCROLL
+ ========================= */
+
+const commercialPage =
+    document.querySelector(
+        ".commercial"
+    );
+
+
+if (
+    commercialPage &&
+    window.gsap &&
+    window.ScrollTrigger &&
+    window.ScrollSmoother
+) {
+
+    gsap.registerPlugin(
+        ScrollTrigger,
+        ScrollSmoother
+    );
+
+
+    ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1.2,
+        smoothTouch: 0.1,
+        effects: false
+    });
+
+}
 
 /* =========================
    GRAPHIC DESIGN
    ========================= */
 
-const graphicDesign =
-    document.querySelector(
-        ".graphicdesign"
+const graphicdesign =
+    document.querySelector(".graphicdesign");
+
+if (graphicdesign) {
+
+    const images = Array.from(
+        { length: 13 },
+        (_, i) => {
+            const number = i + 1;
+
+            return `https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1800/graphic_design_${number}.jpg`;
+        }
     );
 
+    const counter =
+        document.querySelector(".graphic-counter");
 
-if (graphicDesign) {
+    let currentIndex = 0;
+    let canScroll = true;
 
-    /*
-     * Create paths for all
-     * 13 graphic design images.
-     */
+    const scrollDelay = 500;
 
-    const graphicPaths = [];
 
-    for (
-        let i = 1;
-        i <= 14;
-        i++
-    ) {
+    function updateCounter() {
 
-        graphicPaths.push(
-            `${CLOUDINARY_BASE}f_auto,q_auto,w_2000/graphic_design_${i}.jpg`
-        );
+        const number =
+            String(currentIndex + 1)
+                .padStart(2, "0");
 
+        counter.textContent =
+            `${number}/13`;
     }
 
 
-    /*
-     * Preload graphic design images.
-     */
+    images.forEach(function(src) {
 
-    graphicPaths.forEach(
-        function(path) {
+        const slide =
+            document.createElement("div");
 
-            const preload =
-                new Image();
+        slide.className =
+            "graphic-slide";
 
-            preload.src = path;
+        const image =
+            document.createElement("img");
 
-        }
-    );
+        image.src = src;
+        image.alt = "";
 
+        slide.appendChild(image);
+        graphicdesign.appendChild(slide);
 
-    /*
-     * Create the slides.
-     */
+    });
 
-    graphicPaths.forEach(
-        function(path, index) {
-
-            const slide =
-                document.createElement(
-                    "div"
-                );
-
-
-            slide.className =
-                "graphic-slide";
-
-
-            if (index === 0) {
-
-                slide.classList.add(
-                    "active"
-                );
-
-            }
-
-
-            const image =
-                document.createElement(
-                    "img"
-                );
-
-
-            image.src =
-                path;
-
-
-            image.alt =
-                `Graphic design project ${index + 1}`;
-
-
-            slide.appendChild(
-                image
-            );
-
-
-            graphicDesign.appendChild(
-                slide
-            );
-
-        }
-    );
-
-
-    /*
-     * Get the slides after
-     * creating them.
-     */
 
     const slides =
-        graphicDesign.querySelectorAll(
+        graphicdesign.querySelectorAll(
             ".graphic-slide"
         );
 
 
-    let currentSlide = 0;
+    slides[0].classList.add("active");
 
-    let isChanging = false;
+    updateCounter();
 
-
-    /*
-     * Change graphic design image.
-     */
-
-    function changeSlide(direction) {
-
-        if (isChanging) return;
-
-
-        let nextSlide =
-            currentSlide + direction;
-
-
-        if (
-            nextSlide >=
-            slides.length
-        ) {
-
-            nextSlide = 0;
-
-        }
-
-
-        if (
-            nextSlide < 0
-        ) {
-
-            nextSlide =
-                slides.length - 1;
-
-        }
-
-
-        isChanging = true;
-
-
-        slides[currentSlide]
-            .classList.remove(
-                "active"
-            );
-
-
-        slides[nextSlide]
-            .classList.add(
-                "active"
-            );
-
-
-        currentSlide =
-            nextSlide;
-
-
-        setTimeout(
-            function() {
-
-                isChanging = false;
-
-            },
-            800
-        );
-
-    }
-
-
-    /*
-     * Mouse wheel navigation.
-     */
 
     window.addEventListener(
         "wheel",
         function(event) {
 
+            if (!canScroll) {
+                return;
+            }
+
             if (
-                event.deltaY > 0
+                Math.abs(event.deltaY) < 10
             ) {
-
-                changeSlide(1);
-
+                return;
             }
 
 
-            if (
-                event.deltaY < 0
-            ) {
+            canScroll = false;
 
-                changeSlide(-1);
 
+            if (event.deltaY > 0) {
+
+                currentIndex =
+                    (currentIndex + 1) %
+                    images.length;
+
+            } else {
+
+                currentIndex =
+                    (
+                        currentIndex -
+                        1 +
+                        images.length
+                    ) %
+                    images.length;
             }
 
-        },
-        {
-            passive: true
-        }
-    );
 
-}
+            slides.forEach(function(slide) {
 
-/* =========================
-   COMMERCIAL IMAGE CONVEYOR
-========================= */
-
-const commercialProjects =
-    document.querySelectorAll(
-        ".commercial-project:not(.ami-project)"
-    );
-
-commercialProjects.forEach(function(project) {
-
-    const container =
-        project.querySelector(".commercial-images");
-
-    if (!container) {
-        return;
-    }
-
-    const originalImages =
-        Array.from(
-            container.querySelectorAll("img")
-        );
-
-    if (originalImages.length === 0) {
-        return;
-    }
-
-    const speed = 100;
-    const spacing = 50;
-
-
-    /* =========================
-       PRELOAD IMAGES
-    ========================= */
-
-    const imagePromises =
-        originalImages.map(function(image) {
-
-            return new Promise(function(resolve) {
-
-                const src =
-                    image.currentSrc ||
-                    image.src;
-
-                const preload =
-                    new Image();
-
-                preload.onload = async function() {
-
-                    try {
-                        await preload.decode();
-                    } catch (error) {}
-
-                    resolve({
-                        src: src,
-                        width: preload.naturalWidth,
-                        height: preload.naturalHeight
-                    });
-
-                };
-
-                preload.onerror = function() {
-
-                    resolve({
-                        src: src,
-                        width: 1,
-                        height: 1
-                    });
-
-                };
-
-                preload.src = src;
-
-            });
-
-        });
-
-
-    Promise.all(imagePromises).then(function(data) {
-
-        startConveyor(data);
-
-    });
-
-
-    /* =========================
-       START CONVEYOR
-    ========================= */
-
-    function startConveyor(data) {
-
-        container.innerHTML = "";
-
-
-        const track =
-            document.createElement("div");
-
-        track.className =
-            "commercial-conveyor-track";
-
-        container.appendChild(track);
-
-
-        /*
-         * Create THREE identical sequences.
-         *
-         * This guarantees that there is
-         * always another image coming in
-         * from the left edge.
-         */
-
-        const sequenceCount = 3;
-
-
-        for (
-            let sequence = 0;
-            sequence < sequenceCount;
-            sequence++
-        ) {
-
-            data.forEach(function(item) {
-
-                const image =
-                    document.createElement("img");
-
-                image.className =
-                    "commercial-loop-image";
-
-                image.src =
-                    item.src;
-
-                image.alt = "";
-
-                image.draggable = false;
-
-
-                /*
-                 * Calculate image width.
-                 */
-
-                let width =
-                    Math.min(
-                        window.innerWidth * 0.44,
-                        700
-                    );
-
-
-                /*
-                 * Raja is narrower.
-                 */
-
-                if (
-                    project.classList.contains(
-                        "raja-project"
-                    )
-                ) {
-
-                    width =
-                        Math.min(
-                            window.innerWidth * 0.28,
-                            330
-                        );
-
-                }
-
-
-                const aspectRatio =
-                    item.width /
-                    item.height;
-
-                const height =
-                    width /
-                    aspectRatio;
-
-
-                image.style.width =
-                    width + "px";
-
-                image.style.height =
-                    height + "px";
-
-
-                track.appendChild(image);
-
-            });
-
-        }
-
-
-        /*
-         * Add spacing.
-         */
-
-        Array.from(
-            track.children
-        ).forEach(function(image, index) {
-
-            if (
-                index <
-                track.children.length - 1
-            ) {
-
-                image.style.marginRight =
-                    spacing + "px";
-
-            }
-
-        });
-
-
-        /*
-         * Measure the FIRST sequence.
-         */
-
-        let sequenceWidth = 0;
-
-
-        data.forEach(function(item) {
-
-            let width =
-                Math.min(
-                    window.innerWidth * 0.44,
-                    700
+                slide.classList.remove(
+                    "active"
                 );
 
-
-            if (
-                project.classList.contains(
-                    "raja-project"
-                )
-            ) {
-
-                width =
-                    Math.min(
-                        window.innerWidth * 0.28,
-                        330
-                    );
-
-            }
+            });
 
 
-            sequenceWidth +=
-                width +
-                spacing;
-
-        });
-
-
-        sequenceWidth -= spacing;
-
-
-        /*
-         * Center the FIRST sequence
-         * initially.
-         */
-
-        const containerWidth =
-            container.clientWidth;
-
-
-        let position =
-            (
-                containerWidth -
-                sequenceWidth
-            ) / 2;
-
-
-        /*
-         * Move the entire track.
-         */
-
-        track.style.transform =
-            `translate3d(${position}px, -50%, 0)`;
-
-
-        /* =========================
-           ANIMATION
-        ========================= */
-
-        let lastTime =
-            performance.now();
-
-
-        function animate(time) {
-
-            const delta =
-                (time - lastTime) /
-                1000;
-
-            lastTime =
-                time;
-
-
-            /*
-             * Move LEFT.
-             */
-
-            position +=
-                speed * delta;
-
-
-            /*
-             * When the first sequence
-             * has moved completely away,
-             * jump exactly one sequence
-             * width forward.
-             *
-             * Because the next copy is
-             * identical and directly behind
-             * it, this is invisible.
-             */
-
-            if (
-                position >=
-                -sequenceWidth
-            ) {
-
-                position -=
-                    sequenceWidth;
-
-            }
-
-
-            track.style.transform =
-                `translate3d(${position}px, -50%, 0)`;
-
-
-            requestAnimationFrame(
-                animate
+            slides[currentIndex].classList.add(
+                "active"
             );
 
-        }
+
+            updateCounter();
 
 
-        requestAnimationFrame(
-            animate
-        );
+            setTimeout(function() {
 
-    }
+                canScroll = true;
 
-});
+            }, scrollDelay);
+
+        },
+        { passive: true }
+    );
+}
+
 
 /* =========================
    PHOTOGRAPHY
