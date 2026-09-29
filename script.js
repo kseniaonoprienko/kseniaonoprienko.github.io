@@ -171,235 +171,121 @@ if (home) {
 
 }
 
+ /* =========================
+    FILM VIDEO CONTROLS
+ ========================= */
 
-/* =========================
-   FILM PROJECT OVERLAYS
-   ========================= */
+function setupVideoControls(
+    videoId,
+    pauseButtonId,
+    soundButtonId
+) {
+    const video = document.getElementById(videoId);
+    const pauseButton = document.getElementById(pauseButtonId);
+    const soundButton = document.getElementById(soundButtonId);
 
-const projectTriggers =
-    document.querySelectorAll(
-        ".project-trigger"
-    );
-
-
-const projectOverlays = {
-
-    "nakilla":
-        document.querySelector(
-            "#nakilla-overlay"
-        ),
-
-    "mun-makuun":
-        document.querySelector(
-            "#mun-makuun-overlay"
-        ),
-
-    "limbo":
-        document.querySelector(
-            "#limbo-overlay"
-        ),
-
-    "out-of-memory":
-        document.querySelector(
-            "#out-of-memory-overlay"
-        )
-
-};
-
-
-const projectOrder = [
-    "nakilla",
-    "mun-makuun",
-    "limbo",
-    "out-of-memory"
-];
-
-
-let currentProject = null;
-
-
-/*
- * Open project from dropdown.
- */
-
-projectTriggers.forEach(
-    function(trigger) {
-
-        trigger.addEventListener(
-            "click",
-            function(event) {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                openProject(
-                    trigger.dataset.project
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/*
- * Open a specific project.
- */
-
-function openProject(project) {
-
-    Object.values(
-        projectOverlays
-    ).forEach(
-        function(overlay) {
-
-            if (overlay) {
-
-                overlay.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-
-    const overlay =
-        projectOverlays[project];
-
-
-    if (overlay) {
-
-        overlay.classList.add(
-            "active"
-        );
-
-        currentProject =
-            project;
-
+    if (!video || !pauseButton || !soundButton) {
+        return;
     }
 
-}
+    /* PAUSE / PLAY */
 
-/*
- * Close the current project.
- */
+    pauseButton.addEventListener("click", function () {
 
-function closeProject() {
+        if (video.paused) {
 
-    Object.values(
-        projectOverlays
-    ).forEach(
-        function(overlay) {
+            video.play();
 
-            if (overlay) {
-
-                overlay.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-
-    currentProject = null;
-
-}
-
-
-/*
- * Click empty area = close project.
- */
-
-Object.values(
-    projectOverlays
-).forEach(
-    function(overlay) {
-
-        if (!overlay) return;
-
-
-        overlay.addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    event.target === overlay
-                ) {
-
-                    closeProject();
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/*
- * Click project composition = next project.
- */
-
-Object.values(
-    projectOverlays
-).forEach(
-    function(overlay) {
-
-        if (!overlay) return;
-
-
-        const content =
-            overlay.querySelector(
-                ".project-content"
+            pauseButton.textContent = "Pause";
+            pauseButton.setAttribute(
+                "aria-label",
+                "Pause video"
             );
 
+        } else {
 
-        if (!content) return;
+            video.pause();
 
+            pauseButton.textContent = "Play";
+            pauseButton.setAttribute(
+                "aria-label",
+                "Play video"
+            );
 
-        content.addEventListener(
-            "click",
-            function(event) {
+        }
 
-                event.stopPropagation();
-
-
-                if (!currentProject) {
-
-                    return;
-
-                }
+    });
 
 
-                const currentIndex =
-                    projectOrder.indexOf(
-                        currentProject
-                    );
+    /* SOUND ON / OFF */
+
+    soundButton.addEventListener("click", function () {
+
+        video.muted = !video.muted;
+
+        if (video.muted) {
+
+            soundButton.textContent = "Sound off";
+            soundButton.setAttribute(
+                "aria-label",
+                "Turn sound on"
+            );
+
+        } else {
+
+            soundButton.textContent = "Sound on";
+            soundButton.setAttribute(
+                "aria-label",
+                "Turn sound off"
+            );
+
+        }
+
+    });
+
+}
 
 
-                const nextIndex =
-                    (
-                        currentIndex + 1
-                    ) %
-                    projectOrder.length;
+/* =========================
+   FILM VIDEOS
+========================= */
+
+function setupAllVideoControls() {
+
+    setupVideoControls(
+        "nakilla-video",
+        "nakilla-pause-button",
+        "nakilla-sound-button"
+    );
+
+    setupVideoControls(
+        "limbo-video",
+        "limbo-pause-button",
+        "limbo-sound-button"
+    );
+
+    setupVideoControls(
+        "outofmemory-video",
+        "outofmemory-pause-button",
+        "outofmemory-sound-button"
+    );
+
+}
 
 
-                openProject(
-                    projectOrder[nextIndex]
-                );
+if (document.readyState === "loading") {
 
-            }
-        );
+    document.addEventListener(
+        "DOMContentLoaded",
+        setupAllVideoControls
+    );
 
-    }
-);
+} else {
+
+    setupAllVideoControls();
+
+}
+
 
  /* =========================
     COMMERCIAL GALLERIES

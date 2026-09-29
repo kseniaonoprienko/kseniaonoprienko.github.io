@@ -42,7 +42,7 @@ header {
 
     width: 100vw;
 
-    padding: 15px 40px 0 40px;
+    padding: 15px 20px 0 20px;
 
     z-index: 999;
 }
@@ -113,119 +113,352 @@ nav {
     background-repeat: no-repeat;
 }
 
+/* =========================================================
+   FILM PROJECT PAGES
+========================================================= */
+
+.film-project-page {
+    background: white;
+    color: black;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+
 /* =========================
-   PROJECT OVERLAY
-   ========================= */
+   PROJECT HEADING
+========================= */
 
-.project-overlay {
-    position: fixed;
-    inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    z-index: 500;
-
-    opacity: 0;
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition: opacity 0.35s ease,
-                visibility 0.35s ease;
+.film-project-heading {
+    padding: 14px 20px 3px 40px;
 }
 
-.project-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+.film-project-heading h1 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
-/* Image + information box */
-
-.project-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 50px;
-
-    max-width: 1100px;
-    max-height: 70vh;
+.film-project-english {
+    margin: 3px 0 0 0;
+    font-size: 11px;
+    line-height: 1.2;
 }
 
-/* Image */
 
-.project-image {
-    height: 60vh;
-    max-height: 600px;
+/* =========================
+   MAIN VIDEO
+========================= */
+
+.film-project-video {
+    width: 100%;
+    margin: 10px 0 20px 0;
+    padding: 0 40px;
 }
 
-.project-image img {
+.nakilla-video {
+    margin-bottom: 0;
+}
+
+.film-video-wrapper {
+    position: relative;
+    width: 70%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.film-video-wrapper video {
     display: block;
+    width: 100%;
+    height: auto;
+    clip-path: inset(17px 0 17px 0);
+    margin: 0;
+    padding: 0;
+}
 
-    width: auto;
-    height: 100%;
+.outofmemory-video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2.39 / 1;
+}
 
+.film-video-wrapper iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+}
+
+.limbo-video-wrapper {
+    width: 60%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.limbo-video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* =========================
+   SOUND AND PAUSE BUTTON
+========================= */
+
+.film-sound-button {
+    position: absolute;
+
+    right: 20px;
+    bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.35);
+    color: white;
+    padding: 6px 9px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+.film-pause-button {
+    position: absolute;
+    right: 100px;
+    bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.35);
+    color: white;
+    padding: 6px 9px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+
+/* =========================
+   PROJECT INFORMATION
+========================= */
+
+.film-project-info {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.4fr)
+        minmax(0, 0.4fr)
+        auto;
+
+    column-gap: 20px;
+
+    padding: 10px 40px 0 40px;
+
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+
+.film-project-description {
+    max-width: 300px;
+}
+
+.film-project-description p {
+    margin: 0 0 10px 0;
+}
+
+
+.film-project-credits {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+
+.film-credit {
+    display: flex;
+    gap: 8px;
+}
+
+
+.film-credit-role {
+    font-style: italic;
+}
+
+
+.film-project-year {
+    white-space: nowrap;
+    margin-left: -180px;
+}
+
+.limbo-project-info {
+    grid-template-columns:
+        minmax(0, 0.3fr)
+        minmax(0, 0.3fr)
+        auto;
+
+    column-gap: 20px;
+}
+
+.limbo-project-info .film-project-year {
+    margin-left: -45px;
+}
+
+/* =========================
+   OUTTAKES
+========================= */
+
+.film-outtakes {
+    margin-top: 90px;
+    padding-bottom: 30px;
+}
+
+
+.film-outtakes-heading {
+    padding: 0 40px 12px 40px;
+
+    font-size: 11px;
+}
+
+
+.film-outtakes-scroll {
+    display: flex;
+
+    gap: 6px;
+
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 0 40px;
+
+    scrollbar-width: none;
+}
+
+
+.film-outtakes-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+
+.film-outtakes-scroll img {
+    flex: 0 0 auto;
+    width: 270px;
+    height: auto;
+    display: block;
+}
+
+.film-outtake-landscape {
+    width: 500px !important;
+    height: auto !important;
     object-fit: contain;
 }
 
-
-/* White information box */
-
-.project-info {
-    width: 320px;
-
-    background: white;
-    color: black;
-
-    padding: 40px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.film-outtake-credit {
+    padding: 8px 40px 0 40px;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
+/* =========================
+   MOBILE
+========================= */
 
-.project-info h1 {
-    margin: 0 0 12px 0;
+@media (max-width: 700px) {
 
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1.15;
-}
+    /* Project heading */
 
-
-.project-year {
-    margin: 0 0 30px 0;
-
-    font-size: 15px;
-}
+    .film-project-heading {
+        padding: 12px 12px 15px 12px;
+    }
 
 
-.project-description {
-    margin: 0;
+    /* Project information */
 
-    font-size: 15px;
-    line-height: 1.5;
-}
+    .film-project-info {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        padding: 18px 12px 0 12px;
+    }
 
-.project-content {
-    cursor: pointer;
+    .film-project-description {
+        max-width: none;
+    }
+
+    .film-project-year {
+        order: -1;
+    }
+
+
+    /* Video */
+
+    .film-project-video {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    /* Video controls */
+
+    .film-sound-button {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .film-pause-button {
+        right: 92px;
+        bottom: 12px;
+    }
+
+
+    /* Outtakes */
+
+    .film-outtakes {
+        margin-top: 55px;
+    }
+
+    .film-outtakes-heading {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .film-outtakes-scroll {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .film-outtakes-scroll img {
+        width: 210px;
+        height: auto;
+    }
+
+
+    /* Landscape outtake */
+
+    .film-outtake-landscape {
+        width: 280px !important;
+        height: 210px !important;
+    }
+
+
+    /* Outtake credit */
+
+    .film-outtake-credit {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
 }
 
 /* --------------------
-   MOBILE
+   MOBILE (REEL PAGE)
 -------------------- */
 
 @media (max-width: 700px) {
 
     header {
-        padding: 20px;
+        padding: 15px 12px 0 12px;
     }
 }
 
