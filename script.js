@@ -1130,3 +1130,56 @@ if (photography) {
     );
 
 }
+
+function setupInfoPanel() {
+
+    const infoButton =
+        document.getElementById("info-button");
+
+    const infoPanel =
+        document.getElementById("info-panel");
+
+    if (!infoButton || !infoPanel) {
+        return;
+    }
+
+    infoButton.addEventListener("click", function () {
+
+        if (infoPanel.classList.contains("is-open")) {
+
+            /* CLOSE INFO */
+
+            infoPanel.classList.remove("is-open");
+
+            document.body.classList.remove("info-open");
+
+            infoButton.textContent = "Info";
+
+        } else {
+
+            /* OPEN INFO */
+
+            infoPanel.classList.add("is-open");
+
+            document.body.classList.add("info-open");
+
+            infoButton.textContent = "Close";
+
+        }
+
+    });
+}
+
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        setupInfoPanel
+    );
+
+} else {
+
+    setupInfoPanel();
+
+}

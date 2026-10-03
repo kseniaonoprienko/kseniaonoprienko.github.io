@@ -157,10 +157,6 @@ nav {
     padding: 0 40px;
 }
 
-.nakilla-video {
-    margin-bottom: 0;
-}
-
 .film-video-wrapper {
     position: relative;
     width: 70%;
@@ -302,6 +298,260 @@ nav {
 
 .limbo-project-info .film-project-year {
     margin-left: -45px;
+}
+
+/* =========================
+   NÄKILLÄ VIDEO + POSTER
+========================= */
+
+.film-project-video {
+    width: 100%;
+    margin: 10px 0 20px 0;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.nakilla-video {
+    margin-bottom: 0;
+}
+
+.nakilla-media {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nakilla-media .film-video-wrapper {
+    position: relative;
+    width: 70%;
+    flex: 0 0 70%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.nakilla-media .film-video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    clip-path: inset(17px 0 17px 0);
+    margin: 0;
+    padding: 0;
+}
+
+.nakilla-poster {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+.nakilla-poster img {
+    display: block;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.nakilla-poster-credit {
+    width: 80%;
+    margin: 8px auto 0 auto;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+
+@media (max-width: 700px) {
+
+    .nakilla-media {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+        gap: 30px;
+    }
+
+    .nakilla-media .film-video-wrapper {
+        width: 100%;
+        flex: none;
+    }
+
+    .nakilla-poster {
+        width: 150px;
+        flex: none;
+    }
+
+    .nakilla-poster img {
+        width: 150px;
+    }
+
+}
+
+/* =========================
+   MUN MAKUUN VIDEO + POSTER
+========================= */
+
+.munmakuun-video {
+    margin-bottom: 0;
+}
+
+.munmakuun-media {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.munmakuun-media .film-video-wrapper {
+    position: relative;
+    width: 70%;
+    flex: 0 0 70%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.munmakuun-media .film-video-wrapper iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+}
+
+.munmakuun-poster {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+.munmakuun-poster img {
+    display: block;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.munmakuun-poster-credit {
+    width: 80%;
+    margin: 8px auto 0 auto;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+/* =========================
+   LIMBO VIDEO + POSTER
+========================= */
+
+.limbo-video {
+    margin-bottom: 0;
+}
+
+.limbo-media {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.limbo-media .limbo-video-wrapper {
+    position: relative;
+    width: 60%;
+    flex: 0 0 60%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.limbo-media .limbo-video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.limbo-poster {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+.limbo-poster img {
+    display: block;
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.limbo-poster-credit {
+    width: 70%;
+    margin: 8px auto 0 auto;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+/* =========================
+   OUT OF MEMORY VIDEO + POSTER
+========================= */
+
+.outofmemory-video {
+    margin-bottom: 0;
+}
+
+.outofmemory-media {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.outofmemory-media .outofmemory-video-wrapper {
+    position: relative;
+    width: 70%;
+    flex: 0 0 70%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.outofmemory-media .outofmemory-video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2.39 / 1;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.outofmemory-poster {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+.outofmemory-poster img {
+    display: block;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.outofmemory-poster-credit {
+    width: 80%;
+    margin: 8px auto 0 auto;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
 /* =========================
@@ -1124,73 +1374,119 @@ nav {
     pointer-events: none;
 }
 
-/* --------------------
-   INFO PAGE
--------------------- */
+/* =========================
+   INFO PANEL
+========================= */
 
-.info-page {
-    background: white;
+.info-open .info-hide {
+    display: none;
+}
+
+.info-open header,
+.info-open header a,
+.info-open header button {
     color: black;
 }
 
-.info-page .site-name,
-.info-page .menu-item:first-of-type .menu-button,
-.info-page .menu-item:first-of-type .dropdown a {
-    color: white;
-}
-
-.info-image {
+.info-panel {
     position: fixed;
+
     top: 0;
     left: 0;
 
-    width: 40vw;
+    width: 100vw;
     height: 100vh;
+
+    background: #8BA14A;
+    color: black;
+
+    z-index: 998;
+
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+
+    overflow: hidden;
 }
 
-.info-image img {
+
+.info-panel.is-open {
+    transform: translateY(0);
+}
+
+
+.info-content {
     width: 100%;
     height: 100%;
 
-    object-fit: cover;
-    display: block;
-}
+    box-sizing: border-box;
 
-.info-text {
-    position: fixed;
-    top: 0;
-    right: 0;
-
-    width: 60vw;
-    height: 100vh;
+    padding: 130px 40px 15px 40px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: left;
 }
 
-.info-text p {
-    width: 400px;
+
+.info-page-content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.info-description {
+    font-size: 18px;
+    line-height: 1.35;
+    max-width: 700px;
+}
+
+.info-image {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    gap: 0;
+}
+
+.info-photo {
+    display: block;
+
+    width: 180px;
+    height: auto;
+
     margin: 0;
+    padding: 0;
 }
 
-.info-text p + p {
-    margin-top: 30px;
+
+.info-photo-1 {
+    filter: brightness(50%);
 }
 
-.info-text a {
-    color: inherit;
+
+.info-photo-2 {
+    filter: brightness(75%);
+}
+
+
+.info-photo-3 {
+    filter: brightness(100%);
+}
+
+.info-footer {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+.info-footer a {
+    color: black;
     text-decoration: none;
 }
 
-.info-text .email {
-    font-family: "EB Garamond", serif;
-    font-style: italic;
-}
-
-.info-text a:hover {
+.info-footer a:hover {
     text-decoration: underline;
 }

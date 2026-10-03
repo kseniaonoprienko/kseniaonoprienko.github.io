@@ -34,11 +34,13 @@
         </a>
 
 
-        <div class="menu-item">
+        <div class="menu-item info-hide">
 
-            <a href="index.html" class="menu-button">
+            <button
+                class="menu-button"
+                type="button">
                 Film Projects
-            </a>
+            </button>
 
             <div class="dropdown">
 
@@ -63,12 +65,12 @@
         </div>
 
 
-        <a href="reel.html">
+        <a href="reel.html" class="info-hide">
             Reel
         </a>
 
 
-        <div class="menu-item">
+        <div class="menu-item info-hide">
 
             <button
                 class="menu-button"
@@ -95,13 +97,111 @@
         </div>
 
 
-        <a href="info.html">
+        <button
+            class="menu-button info-button"
+            type="button"
+            id="info-button">
             Info
-        </a>
+        </button>
 
     </nav>
 
 </header>
+
+<!-- =========================
+     INFO OVERLAY
+     ========================= -->
+
+
+<div class="info-panel" id="info-panel">
+
+    <div class="info-content">
+
+        <main class="info-page-content">
+
+
+            <!-- TEXT -->
+
+            <section class="info-text">
+
+                <div class="info-description">
+
+                    <p>
+                        Ksenia Onoprienko is a Helsinki-based
+                        director and cinematographer working
+                        across fiction and documentary.
+                        Her films are sincere and emotionally grounded,
+                        exploring family, memory, and belonging
+                        through female stories.
+                    </p>
+
+                    <p>
+                        A graduate of Metropolia University of
+                        Applied Sciences in Film and Television,
+                        she moves between directing, editing, and
+                        cinematography, with the camera as her strongest tool.
+                        Alongside moving image, she works in photography
+                        and graphic design, and brings that visual thinking
+                        to fiction and documentary alike.
+                    </p>
+
+                    <p>
+                        Off set, you'll find her in the back row of
+                        an arthouse screening, wandering the city on foot,
+                        or at home with her cat Oskari.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- PHOTO -->
+
+            <section class="info-image">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/v1791051239/info_image.jpg"
+                    alt="Ksenia Onoprienko"
+                    class="info-photo info-photo-1">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/v1791051239/info_image.jpg"
+                    alt=""
+                    class="info-photo info-photo-2">
+
+                <img
+                    src="https://res.cloudinary.com/hhucbfrh/image/upload/v1791051239/info_image.jpg"
+                    alt=""
+                    class="info-photo info-photo-3">
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="info-footer">
+
+                <a
+                    href="mailto:ksenia.onoprienkoo@gmail.com">
+                    ksenia.onoprienkoo@gmail.com
+                </a>
+
+                <a
+                    href="https://www.instagram.com/ksenia.onoprien/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    @ksenia.onoprien
+                </a>
+
+            </footer>
+
+
+        </main>
+
+    </div>
+
+</div>
 
 
     <!-- =========================
@@ -119,10 +219,6 @@
                 Limbo
             </h1>
 
-            <p class="film-project-english">
-                Limbo
-            </p>
-
         </section>
 
 
@@ -131,41 +227,59 @@
              MAIN VIDEO
         ========================= -->
 
-        <section class="film-project-video">
+        <section class="film-project-video limbo-video">
 
-            <div class="film-video-wrapper limbo-video-wrapper">
+            <div class="limbo-media">
 
-                <video
-                    id="limbo-video"    
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                >
-                    <source
-                        src="https://res.cloudinary.com/hhucbfrh/video/upload/f_auto,q_auto/v1790722513/Limbo_Trailer_2.mp4"
-                        type="video/mp4"
+                <div class="film-video-wrapper limbo-video-wrapper">
+
+                    <video
+                        id="limbo-video"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
                     >
-                </video>
+                        <source
+                            src="https://res.cloudinary.com/hhucbfrh/video/upload/f_auto,q_auto/v1790722513/Limbo_Trailer_2.mp4"
+                            type="video/mp4"
+                        >
+                    </video>
 
-                <button
-                    class="film-pause-button"
-                    id="limbo-pause-button"
-                    type="button"
-                    aria-label="Pause video"
-                >
-                    Pause
-                </button>
+                    <button
+                        class="film-pause-button"
+                        id="limbo-pause-button"
+                        type="button"
+                        aria-label="Pause video"
+                    >
+                        Pause
+                    </button>
 
-                <button
-                    class="film-sound-button"
-                    id="limbo-sound-button"
-                    type="button"
-                    aria-label="Turn sound on"
-                >
-                    Sound off
-                </button>
+                    <button
+                        class="film-sound-button"
+                        id="limbo-sound-button"
+                        type="button"
+                        aria-label="Turn sound on"
+                    >
+                        Sound off
+                    </button>
+
+                </div>
+
+
+                <div class="limbo-poster">
+
+                    <img
+                        src="https://res.cloudinary.com/hhucbfrh/image/upload/v1789577491/image_3.jpg"
+                        alt="Limbo poster"
+                    >
+
+                    <div class="limbo-poster-credit">
+                        © Ksenia Onoprienko
+                    </div>
+
+                </div>
 
             </div>
 
@@ -301,6 +415,7 @@
 
                 </div>
 
+                <br>
 
                 <div class="film-credit">
 
@@ -364,8 +479,6 @@
 
 
     </main>
-
-</body>
 
     <script src="script.js"></script>
 
