@@ -486,13 +486,13 @@ nav {
 
 .limbo-poster img {
     display: block;
-    width: 70%;
+    width: 60%;
     height: auto;
     margin: 0 auto;
 }
 
 .limbo-poster-credit {
-    width: 70%;
+    width: 60%;
     margin: 8px auto 0 auto;
     font-size: 10px;
     line-height: 1.2;
