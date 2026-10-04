@@ -609,6 +609,7 @@ nav {
     padding: 8px 40px 0 40px;
     font-size: 10px;
     line-height: 1.2;
+    opacity: 0.5;
 }
 
 /* =========================
@@ -800,7 +801,7 @@ nav {
     width: 100%;
     min-height: 100vh;
 
-    padding: 80px 6vw;
+    padding: 50px 6vw;
 
     display: flex;
     align-items: center;
@@ -816,7 +817,7 @@ nav {
 
 .commercial-text {
     flex: 0 0 22vw;
-    max-width: 280px;
+    max-width: 300px;
     align-self: center;
 }
 
@@ -849,7 +850,7 @@ nav {
 
 
 .commercial-role {
-    margin: 0 0 15px 0;
+    margin: 0 0 10px 0;
 
     font-size: 13px;
     line-height: 1.5;
@@ -1024,7 +1025,7 @@ nav {
 
 .commercial-outtakes {
     width: 100%;
-    padding: 20px 6vw 100px 6vw;
+    padding: 20px 6vw 20px 6vw;
 
     background: white;
     color: black;
@@ -1033,7 +1034,7 @@ nav {
 .outtakes-header {
     margin-bottom: 30px;
 
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1;
 }
 
