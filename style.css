@@ -113,6 +113,10 @@ nav {
     background-repeat: no-repeat;
 }
 
+.home {
+    touch-action: pan-y;
+}
+
 /* =========================================================
    FILM PROJECT PAGES
 ========================================================= */
@@ -1318,6 +1322,10 @@ nav {
     color: black;
 
     pointer-events: none;
+}
+
+.graphicdesign {
+    touch-action: pan-y;
 }
 
 /* --------------------

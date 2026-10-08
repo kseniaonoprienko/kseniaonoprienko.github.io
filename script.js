@@ -61,6 +61,94 @@ if (home) {
     const cooldown = 4;
 
 
+    /*
+     * Change to a new random image.
+     */
+
+    function changeHomeImage() {
+
+        let availableImages = [];
+
+
+        for (
+            let i = 0;
+            i < images.length;
+            i++
+        ) {
+
+            if (
+                !imageHistory.includes(i)
+            ) {
+
+                availableImages.push(i);
+
+            }
+
+        }
+
+
+        /*
+         * Safety check.
+         */
+
+        if (
+            availableImages.length === 0
+        ) {
+
+            availableImages =
+                images.map(
+                    function(_, index) {
+                        return index;
+                    }
+                );
+
+        }
+
+
+        const randomPosition =
+            Math.floor(
+                Math.random() *
+                availableImages.length
+            );
+
+
+        const newImage =
+            availableImages[
+                randomPosition
+            ];
+
+
+        currentImage =
+            newImage;
+
+
+        home.style.backgroundImage =
+            `url("${images[currentImage]}")`;
+
+
+        imageHistory.push(
+            currentImage
+        );
+
+
+        if (
+            imageHistory.length >
+            cooldown
+        ) {
+
+            imageHistory.shift();
+
+        }
+
+    }
+
+
+    /*
+     * Desktop:
+     * change image when mouse
+     * moves far enough.
+     */
+
     document.addEventListener(
         "mousemove",
         function(event) {
@@ -84,78 +172,7 @@ if (home) {
                 distanceY > movementThreshold
             ) {
 
-                let availableImages = [];
-
-
-                for (
-                    let i = 0;
-                    i < images.length;
-                    i++
-                ) {
-
-                    if (
-                        !imageHistory.includes(i)
-                    ) {
-
-                        availableImages.push(i);
-
-                    }
-
-                }
-
-
-                /*
-                 * Safety check.
-                 */
-
-                if (
-                    availableImages.length === 0
-                ) {
-
-                    availableImages =
-                        images.map(
-                            function(_, index) {
-                                return index;
-                            }
-                        );
-
-                }
-
-
-                const randomPosition =
-                    Math.floor(
-                        Math.random() *
-                        availableImages.length
-                    );
-
-
-                const newImage =
-                    availableImages[
-                        randomPosition
-                    ];
-
-
-                currentImage =
-                    newImage;
-
-
-                home.style.backgroundImage =
-                    `url("${images[currentImage]}")`;
-
-
-                imageHistory.push(
-                    currentImage
-                );
-
-
-                if (
-                    imageHistory.length >
-                    cooldown
-                ) {
-
-                    imageHistory.shift();
-
-                }
+                changeHomeImage();
 
 
                 lastMouseX =
@@ -167,6 +184,98 @@ if (home) {
             }
 
         }
+    );
+
+
+    /*
+     * Mobile:
+     * change image when the user
+     * swipes left or right.
+     */
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+
+    home.addEventListener(
+        "touchstart",
+        function(event) {
+
+            if (
+                !event.touches.length
+            ) {
+                return;
+            }
+
+
+            const touch =
+                event.touches[0];
+
+
+            touchStartX =
+                touch.clientX;
+
+            touchStartY =
+                touch.clientY;
+
+        },
+        { passive: true }
+    );
+
+
+    home.addEventListener(
+        "touchend",
+        function(event) {
+
+            if (
+                !event.changedTouches.length
+            ) {
+                return;
+            }
+
+
+            const touch =
+                event.changedTouches[0];
+
+
+            const deltaX =
+                touch.clientX -
+                touchStartX;
+
+
+            const deltaY =
+                touch.clientY -
+                touchStartY;
+
+
+            /*
+             * Ignore small movements.
+             */
+
+            if (
+                Math.abs(deltaX) < 50
+            ) {
+                return;
+            }
+
+
+            /*
+             * Ignore mainly vertical
+             * swipes.
+             */
+
+            if (
+                Math.abs(deltaX) <
+                Math.abs(deltaY)
+            ) {
+                return;
+            }
+
+
+            changeHomeImage();
+
+        },
+        { passive: true }
     );
 
 }
@@ -657,6 +766,10 @@ if (graphicdesign) {
     const scrollDelay = 500;
 
 
+    /*
+     * Update counter.
+     */
+
     function updateCounter() {
 
         const number =
@@ -667,6 +780,10 @@ if (graphicdesign) {
             `${number}/13`;
     }
 
+
+    /*
+     * Create slides.
+     */
 
     images.forEach(function(src) {
 
@@ -699,13 +816,72 @@ if (graphicdesign) {
     updateCounter();
 
 
+    /*
+     * Show next/previous image.
+     */
+
+    function changeSlide(direction) {
+
+        if (!canScroll) {
+            return;
+        }
+
+
+        canScroll = false;
+
+
+        if (direction > 0) {
+
+            currentIndex =
+                (currentIndex + 1) %
+                images.length;
+
+        } else {
+
+            currentIndex =
+                (
+                    currentIndex -
+                    1 +
+                    images.length
+                ) %
+                images.length;
+        }
+
+
+        slides.forEach(function(slide) {
+
+            slide.classList.remove(
+                "active"
+            );
+
+        });
+
+
+        slides[currentIndex].classList.add(
+            "active"
+        );
+
+
+        updateCounter();
+
+
+        setTimeout(function() {
+
+            canScroll = true;
+
+        }, scrollDelay);
+
+    }
+
+
+    /*
+     * Desktop:
+     * mouse wheel.
+     */
+
     window.addEventListener(
         "wheel",
         function(event) {
-
-            if (!canScroll) {
-                return;
-            }
 
             if (
                 Math.abs(event.deltaY) < 10
@@ -714,53 +890,115 @@ if (graphicdesign) {
             }
 
 
-            canScroll = false;
-
-
-            if (event.deltaY > 0) {
-
-                currentIndex =
-                    (currentIndex + 1) %
-                    images.length;
-
-            } else {
-
-                currentIndex =
-                    (
-                        currentIndex -
-                        1 +
-                        images.length
-                    ) %
-                    images.length;
-            }
-
-
-            slides.forEach(function(slide) {
-
-                slide.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-            slides[currentIndex].classList.add(
-                "active"
+            changeSlide(
+                event.deltaY > 0 ? 1 : -1
             );
-
-
-            updateCounter();
-
-
-            setTimeout(function() {
-
-                canScroll = true;
-
-            }, scrollDelay);
 
         },
         { passive: true }
     );
+
+
+    /*
+     * Mobile:
+     * touch swipe.
+     */
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+
+    graphicdesign.addEventListener(
+        "touchstart",
+        function(event) {
+
+            if (
+                !event.touches.length
+            ) {
+                return;
+            }
+
+
+            const touch =
+                event.touches[0];
+
+
+            touchStartX =
+                touch.clientX;
+
+            touchStartY =
+                touch.clientY;
+
+        },
+        { passive: true }
+    );
+
+
+    graphicdesign.addEventListener(
+        "touchend",
+        function(event) {
+
+            if (
+                !event.changedTouches.length
+            ) {
+                return;
+            }
+
+
+            const touch =
+                event.changedTouches[0];
+
+
+            const deltaX =
+                touch.clientX -
+                touchStartX;
+
+
+            const deltaY =
+                touch.clientY -
+                touchStartY;
+
+
+            /*
+             * Only count a swipe if
+             * it is mainly horizontal.
+             */
+
+            if (
+                Math.abs(deltaX) <
+                50
+            ) {
+                return;
+            }
+
+
+            if (
+                Math.abs(deltaX) <
+                Math.abs(deltaY)
+            ) {
+                return;
+            }
+
+
+            /*
+             * Swipe left = next.
+             * Swipe right = previous.
+             */
+
+            if (deltaX < 0) {
+
+                changeSlide(1);
+
+            } else {
+
+                changeSlide(-1);
+
+            }
+
+        },
+        { passive: true }
+    );
+
 }
 
 
