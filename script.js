@@ -986,139 +986,45 @@ if (photography) {
 
 
     /*
-     * Mouse movement.
+     * Handle movement.
      */
 
-    window.addEventListener(
-        "mousemove",
-        function(event) {
+    function handleMovement(
+        currentX,
+        currentY
+    ) {
 
-            const currentX =
-                event.clientX;
+        const dx =
+            currentX - lastX;
 
-            const currentY =
-                event.clientY;
-
-
-            const dx =
-                currentX - lastX;
-
-            const dy =
-                currentY - lastY;
+        const dy =
+            currentY - lastY;
 
 
-            const segmentLength =
-                Math.sqrt(
-                    dx * dx +
-                    dy * dy
-                );
+        const segmentLength =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
 
 
-            if (
-                segmentLength === 0
-            ) {
+        if (
+            segmentLength === 0
+        ) {
 
-                return;
+            return;
 
-            }
-
-
-            /*
-             * Ignore very large jumps.
-             */
-
-            if (
-                segmentLength >
-                maxMovement
-            ) {
-
-                lastX =
-                    currentX;
-
-                lastY =
-                    currentY;
-
-                return;
-
-            }
+        }
 
 
-            let remainingDistance =
-                segmentLength;
+        /*
+         * Ignore very large jumps.
+         */
 
-
-            let startX =
-                lastX;
-
-            let startY =
-                lastY;
-
-
-            /*
-             * Create a new photograph
-             * every 80px of movement.
-             */
-
-            while (
-                distanceSinceLastPhoto +
-                remainingDistance >=
-                threshold
-            ) {
-
-                const distanceToPhoto =
-                    threshold -
-                    distanceSinceLastPhoto;
-
-
-                const ratio =
-                    distanceToPhoto /
-                    remainingDistance;
-
-
-                const photoX =
-                    startX +
-                    (
-                        currentX -
-                        startX
-                    ) *
-                    ratio;
-
-
-                const photoY =
-                    startY +
-                    (
-                        currentY -
-                        startY
-                    ) *
-                    ratio;
-
-
-                showNextPhoto(
-                    photoX,
-                    photoY
-                );
-
-
-                startX =
-                    photoX;
-
-                startY =
-                    photoY;
-
-
-                remainingDistance -=
-                    distanceToPhoto;
-
-
-                distanceSinceLastPhoto =
-                    0;
-
-            }
-
-
-            distanceSinceLastPhoto +=
-                remainingDistance;
-
+        if (
+            segmentLength >
+            maxMovement
+        ) {
 
             lastX =
                 currentX;
@@ -1126,10 +1032,184 @@ if (photography) {
             lastY =
                 currentY;
 
+            return;
+
+        }
+
+
+        let remainingDistance =
+            segmentLength;
+
+
+        let startX =
+            lastX;
+
+        let startY =
+            lastY;
+
+
+        /*
+         * Create a new photograph
+         * every 80px of movement.
+         */
+
+        while (
+            distanceSinceLastPhoto +
+            remainingDistance >=
+            threshold
+        ) {
+
+            const distanceToPhoto =
+                threshold -
+                distanceSinceLastPhoto;
+
+
+            const ratio =
+                distanceToPhoto /
+                remainingDistance;
+
+
+            const photoX =
+                startX +
+                (
+                    currentX -
+                    startX
+                ) *
+                ratio;
+
+
+            const photoY =
+                startY +
+                (
+                    currentY -
+                    startY
+                ) *
+                ratio;
+
+
+            showNextPhoto(
+                photoX,
+                photoY
+            );
+
+
+            startX =
+                photoX;
+
+            startY =
+                photoY;
+
+
+            remainingDistance -=
+                distanceToPhoto;
+
+
+            distanceSinceLastPhoto =
+                0;
+
+        }
+
+
+        distanceSinceLastPhoto +=
+            remainingDistance;
+
+
+        lastX =
+            currentX;
+
+        lastY =
+            currentY;
+
+    }
+
+
+    /*
+     * Mouse movement.
+     */
+
+    window.addEventListener(
+        "mousemove",
+        function(event) {
+
+            handleMovement(
+                event.clientX,
+                event.clientY
+            );
+
+        }
+    );
+
+
+    /*
+     * Touch movement.
+     */
+
+    window.addEventListener(
+        "touchstart",
+        function(event) {
+
+            if (
+                !event.touches.length
+            ) {
+
+                return;
+
+            }
+
+
+            const touch =
+                event.touches[0];
+
+
+            lastX =
+                touch.clientX;
+
+            lastY =
+                touch.clientY;
+
+            distanceSinceLastPhoto =
+                0;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    window.addEventListener(
+        "touchmove",
+        function(event) {
+
+            if (
+                !event.touches.length
+            ) {
+
+                return;
+
+            }
+
+
+            const touch =
+                event.touches[0];
+
+
+            handleMovement(
+                touch.clientX,
+                touch.clientY
+            );
+
+        },
+        {
+            passive: true
         }
     );
 
 }
+
+/* =========================
+   INFO PAGE
+   ========================= */
 
 function setupInfoPanel() {
 

@@ -1375,6 +1375,10 @@ nav {
     pointer-events: none;
 }
 
+.photography {
+    touch-action: none;
+}
+
 /* =========================
    INFO PANEL
 ========================= */
@@ -1490,4 +1494,12 @@ nav {
 
 .info-footer a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+    .info-panel {
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
 }
