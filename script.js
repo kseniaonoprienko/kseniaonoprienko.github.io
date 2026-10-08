@@ -13,9 +13,11 @@ const CLOUDINARY_BASE =
 const images = Array.from(
     { length: 28 },
     (_, i) => {
+
         const number = i + 1;
 
         return `${CLOUDINARY_BASE}f_auto,q_auto,w_2000/showreel_still_${number}.jpg`;
+
     }
 );
 
@@ -33,20 +35,25 @@ images.forEach(function(image) {
 });
 
 
-const home = document.querySelector(".home");
+const home =
+    document.querySelector(".home");
 
 
 if (home) {
 
     let currentImage =
-        Math.floor(Math.random() * images.length);
+        Math.floor(
+            Math.random() *
+            images.length
+        );
 
 
     home.style.backgroundImage =
         `url("${images[currentImage]}")`;
 
 
-    let imageHistory = [currentImage];
+    let imageHistory =
+        [currentImage];
 
 
     let lastMouseX =
@@ -62,7 +69,7 @@ if (home) {
 
 
     /*
-     * Change to a new random image.
+     * Change to a random image.
      */
 
     function changeHomeImage() {
@@ -144,9 +151,7 @@ if (home) {
 
 
     /*
-     * Desktop:
-     * change image when mouse
-     * moves far enough.
+     * Desktop mouse movement.
      */
 
     document.addEventListener(
@@ -168,8 +173,10 @@ if (home) {
 
 
             if (
-                distanceX > movementThreshold ||
-                distanceY > movementThreshold
+                distanceX >
+                    movementThreshold ||
+                distanceY >
+                    movementThreshold
             ) {
 
                 changeHomeImage();
@@ -188,97 +195,23 @@ if (home) {
 
 
     /*
-     * Mobile:
-     * change image when the user
-     * swipes left or right.
+     * Mobile tap.
+     *
+     * Every tap anywhere on the
+     * homepage changes the image.
      */
 
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-
     home.addEventListener(
-        "touchstart",
-        function(event) {
-
-            if (
-                !event.touches.length
-            ) {
-                return;
-            }
-
-
-            const touch =
-                event.touches[0];
-
-
-            touchStartX =
-                touch.clientX;
-
-            touchStartY =
-                touch.clientY;
-
-        },
-        { passive: true }
-    );
-
-
-    home.addEventListener(
-        "touchend",
-        function(event) {
-
-            if (
-                !event.changedTouches.length
-            ) {
-                return;
-            }
-
-
-            const touch =
-                event.changedTouches[0];
-
-
-            const deltaX =
-                touch.clientX -
-                touchStartX;
-
-
-            const deltaY =
-                touch.clientY -
-                touchStartY;
-
-
-            /*
-             * Ignore small movements.
-             */
-
-            if (
-                Math.abs(deltaX) < 50
-            ) {
-                return;
-            }
-
-
-            /*
-             * Ignore mainly vertical
-             * swipes.
-             */
-
-            if (
-                Math.abs(deltaX) <
-                Math.abs(deltaY)
-            ) {
-                return;
-            }
-
+        "click",
+        function() {
 
             changeHomeImage();
 
-        },
-        { passive: true }
+        }
     );
 
 }
+
 
  /* =========================
     FILM VIDEO CONTROLS
@@ -746,21 +679,27 @@ if (
 const graphicdesign =
     document.querySelector(".graphicdesign");
 
+
 if (graphicdesign) {
 
     const images = Array.from(
         { length: 13 },
         (_, i) => {
+
             const number = i + 1;
 
             return `https://res.cloudinary.com/hhucbfrh/image/upload/f_auto,q_auto,w_1800/graphic_design_${number}.jpg`;
+
         }
     );
+
 
     const counter =
         document.querySelector(".graphic-counter");
 
+
     let currentIndex = 0;
+
     let canScroll = true;
 
     const scrollDelay = 500;
@@ -778,6 +717,7 @@ if (graphicdesign) {
 
         counter.textContent =
             `${number}/13`;
+
     }
 
 
@@ -790,16 +730,22 @@ if (graphicdesign) {
         const slide =
             document.createElement("div");
 
+
         slide.className =
             "graphic-slide";
+
 
         const image =
             document.createElement("img");
 
+
         image.src = src;
+
         image.alt = "";
 
+
         slide.appendChild(image);
+
         graphicdesign.appendChild(slide);
 
     });
@@ -817,7 +763,7 @@ if (graphicdesign) {
 
 
     /*
-     * Show next/previous image.
+     * Change image.
      */
 
     function changeSlide(direction) {
@@ -830,22 +776,13 @@ if (graphicdesign) {
         canScroll = false;
 
 
-        if (direction > 0) {
-
-            currentIndex =
-                (currentIndex + 1) %
-                images.length;
-
-        } else {
-
-            currentIndex =
-                (
-                    currentIndex -
-                    1 +
-                    images.length
-                ) %
-                images.length;
-        }
+        currentIndex =
+            (
+                currentIndex +
+                direction +
+                images.length
+            ) %
+            images.length;
 
 
         slides.forEach(function(slide) {
@@ -875,8 +812,7 @@ if (graphicdesign) {
 
 
     /*
-     * Desktop:
-     * mouse wheel.
+     * Desktop mouse wheel.
      */
 
     window.addEventListener(
@@ -890,9 +826,15 @@ if (graphicdesign) {
             }
 
 
-            changeSlide(
-                event.deltaY > 0 ? 1 : -1
-            );
+            if (event.deltaY > 0) {
+
+                changeSlide(1);
+
+            } else {
+
+                changeSlide(-1);
+
+            }
 
         },
         { passive: true }
@@ -900,11 +842,11 @@ if (graphicdesign) {
 
 
     /*
-     * Mobile:
-     * touch swipe.
+     * Mobile swipe.
      */
 
     let touchStartX = 0;
+
     let touchStartY = 0;
 
 
@@ -912,15 +854,8 @@ if (graphicdesign) {
         "touchstart",
         function(event) {
 
-            if (
-                !event.touches.length
-            ) {
-                return;
-            }
-
-
             const touch =
-                event.touches[0];
+                event.changedTouches[0];
 
 
             touchStartX =
@@ -938,13 +873,6 @@ if (graphicdesign) {
         "touchend",
         function(event) {
 
-            if (
-                !event.changedTouches.length
-            ) {
-                return;
-            }
-
-
             const touch =
                 event.changedTouches[0];
 
@@ -960,36 +888,44 @@ if (graphicdesign) {
 
 
             /*
-             * Only count a swipe if
-             * it is mainly horizontal.
+             * Ignore short movements.
              */
 
             if (
-                Math.abs(deltaX) <
-                50
-            ) {
-                return;
-            }
-
-
-            if (
-                Math.abs(deltaX) <
-                Math.abs(deltaY)
+                Math.abs(deltaX) < 50
             ) {
                 return;
             }
 
 
             /*
-             * Swipe left = next.
-             * Swipe right = previous.
+             * Ignore vertical swipes.
+             */
+
+            if (
+                Math.abs(deltaY) >
+                Math.abs(deltaX)
+            ) {
+                return;
+            }
+
+
+            /*
+             * Swipe left = next image.
              */
 
             if (deltaX < 0) {
 
                 changeSlide(1);
 
-            } else {
+            }
+
+
+            /*
+             * Swipe right = previous image.
+             */
+
+            else {
 
                 changeSlide(-1);
 
@@ -1000,7 +936,6 @@ if (graphicdesign) {
     );
 
 }
-
 
 /* =========================
    PHOTOGRAPHY

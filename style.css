@@ -113,8 +113,13 @@ nav {
     background-repeat: no-repeat;
 }
 
-.home {
-    touch-action: pan-y;
+@media (max-width: 700px) {
+
+    .home {
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
 }
 
 /* =========================================================
@@ -1326,6 +1331,14 @@ nav {
 
 .graphicdesign {
     touch-action: pan-y;
+}
+
+@media (max-width: 700px) {
+
+    .graphicdesign {
+        touch-action: pan-y;
+    }
+
 }
 
 /* --------------------
