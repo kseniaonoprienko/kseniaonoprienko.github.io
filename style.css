@@ -1387,6 +1387,12 @@ nav {
     touch-action: none;
 }
 
+@media (max-width: 700px) {
+    .photo-stage img {
+        width: 400px !important;
+    }
+}
+
 /* =========================
    INFO PANEL
 ========================= */
@@ -1510,4 +1516,32 @@ nav {
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
     }
+}
+
+@media (max-width: 700px) {
+
+    .info-panel {
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .info-content {
+        min-height: 100%;
+        height: auto;
+    }
+
+    .info-page-content {
+        min-height: 100vh;
+        height: auto;
+        padding-bottom: 60px;
+    }
+
+    .info-footer {
+        position: relative;
+        bottom: auto;
+        margin-top: 60px;
+        padding-bottom: 40px;
+    }
+
 }
